@@ -10,4 +10,5 @@
 
 @interface L3NaverSearchViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
 
+
 @end

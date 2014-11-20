@@ -8,6 +8,8 @@
 
 #import "L3InputViewController.h"
 
+#import "AFNetworking.h"
+
 @interface L3InputViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -34,6 +36,14 @@
         [self.imageView setImage:_image];
     }
     
+//    if (_titleString) {
+//        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[_titleString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
+//        _titleTextfield.attributedText = attributedString;
+//    }
+    
+    _titleTextfield.text = _titleString;
+    self.urlTextfield.text = _urlString;
+    
     [self.cancelButton.layer setShadowColor:[UIColor blackColor].CGColor];
     [self.cancelButton.layer setShadowOffset:CGSizeMake(1, 1)];
     [self.cancelButton.layer setShadowOpacity:0.5f];
@@ -55,6 +65,8 @@
                                              selector:@selector(keyboardWillAnimate:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    [_titleTextfield becomeFirstResponder];
     
 }
 
@@ -116,9 +128,34 @@
 
 - (IBAction)save:(id)sender{
     
-    [self.view endEditing:YES];
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
+    
+    
+    
+    NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 0.5);
+    [self saveImage:imageData forImageName:@"testImage.jpg"];
+    
+    
+}
+
+
+-(void) saveImage: (NSData *)imageData forImageName:(NSString*)imageName{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString *imagePostUrl = @"http://10.73.45.133:8080/app/posts/new";
+    
+    NSDictionary *parameters = @{@"title":_titleTextfield.text,
+                                 @"shopUrl":_urlTextfield.text,
+                                 @"contents":_contentsTextfield.text,
+                                 @"price":@"123123",
+                                 @"id":@"test@example.com"};
+    
+    [manager POST:imagePostUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"image" fileName:imageName mimeType:@"image/jpeg"];
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@,%@",operation,responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@",[error localizedDescription]);
+    }];
 }
 
 

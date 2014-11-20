@@ -9,11 +9,14 @@
 #import "ViewController.h"
 #import "SIAlertView/SIAlertView.h"
 #import "L3InputViewController.h"
+#import "L3NaverSearchViewController.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define COLOR_MAIN UIColorFromRGB(0xE35A66)
 
 @interface ViewController () <UIImagePickerControllerDelegate>
+
+@property (strong, nonatomic) UIStoryboard *storyBoard;
 
 @end
 
@@ -22,6 +25,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    
+    _storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
 }
 
 - (IBAction)add:(id)sender {
@@ -55,11 +61,8 @@
     [alertView addButtonWithTitle:NSLocalizedString(@"웹에서 이미지 검색", @"웹에서 이미지 검색")
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *siAlertView){
-//                              
-//                              SJWebSearchCollectionViewController *search = [[UIStoryboard storyboardWithName:@"Main" bundle: nil] instantiateViewControllerWithIdentifier:@"webImageSearchViewController"];
-//                              [self presentViewController:search animated:YES completion:nil];
-                              
-                              
+                              L3NaverSearchViewController *searchViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"naverSearchViewController"];
+                              [self presentViewController:searchViewController animated:YES completion:nil];
                           }];
     
     [alertView addButtonWithTitle:NSLocalizedString(@"취소", @"취소") type:SIAlertViewButtonTypeCancel handler:nil];
@@ -82,9 +85,8 @@
 }
 
 - (void)showInputView:(UIImage*)image{
-    UIStoryboard *Main = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
-    L3InputViewController *inputViewController = [Main instantiateViewControllerWithIdentifier:@"inputViewController"];
+    L3InputViewController *inputViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"inputViewController"];
     
     [inputViewController setImage:image];
     //    [contentsViewController.blurredImageView setImageToBlur:image blurRadius:20.0f completionBlock:^{

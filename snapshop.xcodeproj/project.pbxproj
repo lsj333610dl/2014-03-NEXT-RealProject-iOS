@@ -45,6 +45,7 @@
 		1F77B5731A1E118000D15BA2 /* SIAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77B5711A1E118000D15BA2 /* SIAlertView.m */; };
 		1F77B5761A1E18DD00D15BA2 /* L3NaverSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77B5751A1E18DD00D15BA2 /* L3NaverSearchViewController.m */; };
 		1F77B57F1A1E1D7E00D15BA2 /* L3LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77B57E1A1E1D7E00D15BA2 /* L3LoginViewController.m */; };
+		1F77B5821A1E285E00D15BA2 /* L3NaverSearchTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F77B5811A1E285E00D15BA2 /* L3NaverSearchTableViewCell.m */; };
 		1FBEB5181A0720B300717E9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEB5171A0720B300717E9A /* main.m */; };
 		1FBEB51B1A0720B300717E9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEB51A1A0720B300717E9A /* AppDelegate.m */; };
 		1FBEB51E1A0720B300717E9A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEB51D1A0720B300717E9A /* ViewController.m */; };
@@ -134,6 +135,8 @@
 		1F77B5751A1E18DD00D15BA2 /* L3NaverSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3NaverSearchViewController.m; sourceTree = "<group>"; };
 		1F77B57D1A1E1D7E00D15BA2 /* L3LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3LoginViewController.h; sourceTree = "<group>"; };
 		1F77B57E1A1E1D7E00D15BA2 /* L3LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3LoginViewController.m; sourceTree = "<group>"; };
+		1F77B5801A1E285E00D15BA2 /* L3NaverSearchTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3NaverSearchTableViewCell.h; sourceTree = "<group>"; };
+		1F77B5811A1E285E00D15BA2 /* L3NaverSearchTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3NaverSearchTableViewCell.m; sourceTree = "<group>"; };
 		1FBEB5121A0720B300717E9A /* snapshop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = snapshop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBEB5161A0720B300717E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FBEB5171A0720B300717E9A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 		1F77B57B1A1E1D3200D15BA2 /* NaverSearch */ = {
 			isa = PBXGroup;
 			children = (
+				1F77B5801A1E285E00D15BA2 /* L3NaverSearchTableViewCell.h */,
+				1F77B5811A1E285E00D15BA2 /* L3NaverSearchTableViewCell.m */,
 				1F77B5741A1E18DD00D15BA2 /* L3NaverSearchViewController.h */,
 				1F77B5751A1E18DD00D15BA2 /* L3NaverSearchViewController.m */,
 			);
@@ -507,6 +512,7 @@
 				1F77B56A1A1DFDC800D15BA2 /* UIView+WebCacheOperation.m in Sources */,
 				1F77B5621A1DFDC800D15BA2 /* SDWebImageManager.m in Sources */,
 				1FBEB51B1A0720B300717E9A /* AppDelegate.m in Sources */,
+				1F77B5821A1E285E00D15BA2 /* L3NaverSearchTableViewCell.m in Sources */,
 				1FBEB5181A0720B300717E9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
