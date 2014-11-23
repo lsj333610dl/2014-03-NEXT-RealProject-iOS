@@ -10,6 +10,9 @@
 
 #import "AFNetworking.h"
 
+
+#define SUCCESS_STATUS @"10"
+
 @interface L3InputViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *inputView;
@@ -141,7 +144,7 @@
 -(void) saveImage: (NSData *)imageData forImageName:(NSString*)imageName{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    NSString *imagePostUrl = @"http://10.73.45.133:8080/app/posts/new";
+    NSString *imagePostUrl = @"http://125.209.199.221:8080/app/posts/new";
     
     NSDictionary *parameters = @{@"title":_titleTextfield.text,
                                  @"shopUrl":_urlTextfield.text,
@@ -152,9 +155,17 @@
     [manager POST:imagePostUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"image" fileName:imageName mimeType:@"image/jpeg"];
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@,%@",operation,responseObject);
+//        NSLog(@"%@,%@",operation,responseObject[@"status"]);
+        if ([responseObject[@"status"] isEqualToString:SUCCESS_STATUS]) {
+            NSLog(@"저장 성공");
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+            [[NSNotificationCenter defaultCenter]postNotificationName:@"SavePost" object:nil];
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",[error localizedDescription]);
+        [[[UIAlertView alloc]initWithTitle:@"저장 실패" message:@"저장에 실패했습니다." delegate:nil cancelButtonTitle:@"확인" otherButtonTitles:nil] show];
     }];
 }
 

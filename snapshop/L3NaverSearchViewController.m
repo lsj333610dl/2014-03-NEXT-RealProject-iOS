@@ -48,7 +48,8 @@ const NSInteger DISPLAY = 20;
     
     self.start = 1;
     self.isLoading = NO;
-    // Do any additional setup after loading the view.
+    
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(close:) name:@"SavePost" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -135,6 +136,8 @@ const NSInteger DISPLAY = 20;
 #pragma mark - IBAction
 - (IBAction)close:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter]removeObserver:self name:@"SavePost" object:nil];
+    NSLog(@"???");
 }
 - (IBAction)segValueChange:(id)sender {
     if ([_searchBar.text isEqualToString:@""]) {
@@ -171,7 +174,7 @@ const NSInteger DISPLAY = 20;
     
     _start = 1;
     
-    [_manager GET:@"http://10.73.45.133:8080/search/shop"
+    [_manager GET:@"http://125.209.199.221:8080/search/shop"
        parameters:@{@"query":searchBar.text,
                     @"display":[NSNumber numberWithInteger:DISPLAY],
                     @"start":[NSNumber numberWithInteger:_start],
@@ -242,7 +245,7 @@ const NSInteger DISPLAY = 20;
         NSLog(@"%zd",_start);
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
             
-            [_manager GET:@"http://10.73.45.133:8080/search/shop"
+            [_manager GET:@"http://125.209.199.221:8080/search/shop"
                parameters:@{@"query":_searchBar.text,
                             @"display":[NSNumber numberWithInteger:DISPLAY],
                             @"start":[NSNumber numberWithInteger:_start],
@@ -267,6 +270,7 @@ const NSInteger DISPLAY = 20;
                 NSLog(@"끝났다.");
                 _isLoading = NO;
                 
+                [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
             });
         });
         
@@ -275,7 +279,6 @@ const NSInteger DISPLAY = 20;
     
     
     
-    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
 }
 
 /*

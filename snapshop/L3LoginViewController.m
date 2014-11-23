@@ -43,6 +43,7 @@
     
     [_emailTextField becomeFirstResponder];
     
+    
 }
 
 - (void)setupTextfield:(UITextField*)tf{
@@ -84,7 +85,7 @@
         return;
         
         
-        [_manager GET:@"http://10.73.45.133:8080/app/users/login"
+        [_manager GET:@"http://125.209.199.221:8080/app/users/login"
            parameters:@{@"email":_emailTextField.text,@"password":_passwordTextField.text}
               success:^(AFHTTPRequestOperation *operation, id responseObject){
                   NSLog(@"%@",[responseObject objectForKey:@"status"]);
