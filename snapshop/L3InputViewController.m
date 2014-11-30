@@ -9,6 +9,7 @@
 #import "L3InputViewController.h"
 
 #import "AFNetworking.h"
+#import "L3TextField.h"
 
 
 #define SUCCESS_STATUS @"10"
@@ -20,9 +21,9 @@
 @property (nonatomic) CGRect keyboardBounds;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
-@property (weak, nonatomic) IBOutlet UITextField *titleTextfield;
-@property (weak, nonatomic) IBOutlet UITextField *urlTextfield;
-@property (weak, nonatomic) IBOutlet UITextField *contentsTextfield;
+@property (weak, nonatomic) IBOutlet L3TextField *titleTextfield;
+@property (weak, nonatomic) IBOutlet L3TextField *urlTextfield;
+@property (weak, nonatomic) IBOutlet L3TextField *contentsTextfield;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 
@@ -47,13 +48,13 @@
     _titleTextfield.text = _titleString;
     self.urlTextfield.text = _urlString;
     
-    [self.cancelButton.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.cancelButton.layer setShadowOffset:CGSizeMake(1, 1)];
-    [self.cancelButton.layer setShadowOpacity:0.5f];
-    
-    [self.saveButton.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.saveButton.layer setShadowOffset:CGSizeMake(1, 1)];
-    [self.saveButton.layer setShadowOpacity:0.5f];
+//    [self.cancelButton.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [self.cancelButton.layer setShadowOffset:CGSizeMake(1, 1)];
+//    [self.cancelButton.layer setShadowOpacity:0.5f];
+//
+//    [self.saveButton.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [self.saveButton.layer setShadowOffset:CGSizeMake(1, 1)];
+//    [self.saveButton.layer setShadowOpacity:0.5f];
     
     [self setupTextfield:self.titleTextfield];
     [self setupTextfield:self.urlTextfield];
@@ -74,12 +75,12 @@
 }
 
 - (void)setupTextfield:(UITextField*)tf{
-    [tf.layer setShadowOpacity:1.0f];
-    [tf.layer setShadowOffset:CGSizeMake(1, 1)];
-    [tf.layer setShadowColor:[UIColor blackColor].CGColor];
+//    [tf.layer setShadowOpacity:1.0f];
+//    [tf.layer setShadowOffset:CGSizeMake(1, 1)];
+//    [tf.layer setShadowColor:[UIColor blackColor].CGColor];
     
-    [tf setValue:[UIColor colorWithRed:220.0/255.0 green:220.0/255.0 blue:220.0/255.0 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
-    [tf setTintColor:[UIColor colorWithRed:227/255.0f green:90/255.0f blue:102/255.0f alpha:1.0f]];
+//    [tf setValue:[UIColor colorWithRed:230/255.0f green:230/255.0f blue:220/255.0f alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
+//    [tf setTintColor:[UIColor colorWithRed:78/255.0f green:197/255.0f blue:152/255.0f alpha:1.0f]];
 }
 
 
@@ -165,6 +166,8 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",[error localizedDescription]);
+        NSLog(@"%@",operation);
+        
         [[[UIAlertView alloc]initWithTitle:@"저장 실패" message:@"저장에 실패했습니다." delegate:nil cancelButtonTitle:@"확인" otherButtonTitles:nil] show];
     }];
 }
@@ -182,6 +185,10 @@
     
     [self.view endEditing:YES];
 //     resignFirstResponder];
+}
+
+- (BOOL)prefersStatusBarHidden {
+    return YES;
 }
 
 /*

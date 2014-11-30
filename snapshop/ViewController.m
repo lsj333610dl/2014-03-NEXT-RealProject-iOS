@@ -24,10 +24,16 @@
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 @property (strong, nonatomic) NSMutableArray *resultArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic) SIAlertView *alertView;
+@property (strong, nonatomic) UIImagePickerController *imgPicker;
 
 @end
 
 @implementation ViewController
+
+@synthesize alertView;
+@synthesize imgPicker;
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +48,44 @@
     [self reloadTable];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SavePost" object:nil];
-    
+
+
+
+    imgPicker = [UIImagePickerController new];
+    [imgPicker setDelegate:(id)self];
+    [imgPicker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : COLOR_MAIN}];
+    [imgPicker setAllowsEditing:YES];
+
+    alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"사진 추가하기", @"사진 추가하기") andMessage:NSLocalizedString(@"사진을 추가할 방법을 선택하세요.", @"사진을 추가할 방법을 선택하세요.")];
+
+
+    [alertView addButtonWithTitle:NSLocalizedString(@"카메라로 사진 촬영", @"카메라로 사진 촬영")
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *siAlertView){
+
+                              [imgPicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+                              [self presentViewController:imgPicker animated:NO completion:^{
+                                  NSLog(@"사진촬영 띄우기 완료");
+                              }];
+                          }];
+
+    [alertView addButtonWithTitle:NSLocalizedString(@"앨범에서 불러오기", @"앨범에서 불러오기")
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *siAlertView){
+
+                              [imgPicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                              [self presentViewController:imgPicker animated:NO completion:nil];
+                          }];
+
+    [alertView addButtonWithTitle:NSLocalizedString(@"웹에서 이미지 검색", @"웹에서 이미지 검색")
+                             type:SIAlertViewButtonTypeDefault
+                          handler:^(SIAlertView *siAlertView){
+                              L3NaverSearchViewController *searchViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"naverSearchViewController"];
+                              [self presentViewController:searchViewController animated:YES completion:nil];
+                          }];
+
+    [alertView addButtonWithTitle:NSLocalizedString(@"취소", @"취소") type:SIAlertViewButtonTypeCancel handler:nil];
+
 }
 
 - (void)reloadTable{
@@ -50,7 +93,8 @@
     [_manager GET:@"http://125.209.199.221:8080/app/posts/"
        parameters:@{@"sort":@1,@"start":@1}
           success:^(AFHTTPRequestOperation *operation, id responseObject){
-              _resultArray = responseObject[@"response"][@"data"][@"list"];
+              NSLog(@"%@",responseObject[@"response"][@"data"]);
+              _resultArray = responseObject[@"response"][@"data"];
               [_tableView reloadData];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error){
@@ -61,43 +105,7 @@
 
 - (IBAction)add:(id)sender {
 
-    UIImagePickerController *picker = [UIImagePickerController new];
-    [picker setDelegate:(id)self];
-    [picker.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : COLOR_MAIN}];
-    [picker setAllowsEditing:YES];
-    
-    SIAlertView *alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"사진 추가하기", @"사진 추가하기") andMessage:NSLocalizedString(@"사진을 추가할 방법을 선택하세요.", @"사진을 추가할 방법을 선택하세요.")];
-    
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"카메라로 사진 촬영", @"카메라로 사진 촬영")
-                             type:SIAlertViewButtonTypeDefault
-                          handler:^(SIAlertView *siAlertView){
-                              
-                              [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
-                              [self presentViewController:picker animated:NO completion:^{
-                                  NSLog(@"사진촬영 띄우기 완료");
-                              }];
-                          }];
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"앨범에서 불러오기", @"앨범에서 불러오기")
-                             type:SIAlertViewButtonTypeDefault
-                          handler:^(SIAlertView *siAlertView){
-                              
-                              [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                              [self presentViewController:picker animated:NO completion:nil];
-                          }];
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"웹에서 이미지 검색", @"웹에서 이미지 검색")
-                             type:SIAlertViewButtonTypeDefault
-                          handler:^(SIAlertView *siAlertView){
-                              L3NaverSearchViewController *searchViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"naverSearchViewController"];
-                              [self presentViewController:searchViewController animated:YES completion:nil];
-                          }];
-    
-    [alertView addButtonWithTitle:NSLocalizedString(@"취소", @"취소") type:SIAlertViewButtonTypeCancel handler:nil];
-    
     [alertView show];
-
 
 }
 

@@ -10,6 +10,8 @@
 #import "AFNetworking/AFNetworking.h"
 #import "SIAlertView/SIAlertView.h"
 #import "ViewController.h"
+#import "L3TextField.h"
+
 
 #define SUCCESS_STATUS @"10"
 
@@ -17,8 +19,8 @@
 
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet UITextField *passwordTextField;
+@property (weak, nonatomic) IBOutlet L3TextField *emailTextField;
+@property (weak, nonatomic) IBOutlet L3TextField *passwordTextField;
 @property (weak, nonatomic) IBOutlet UIButton *findPasswordButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIStoryboard *storyBoard;
@@ -33,34 +35,12 @@
     _manager = [AFHTTPRequestOperationManager manager];
     
     self.storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    
-    [self setupButton:_closeButton];
-    [self setupButton:_findPasswordButton];
-    [self setupButton:_loginButton];
-    
-    [self setupTextfield:_emailTextField];
-    [self setupTextfield:_passwordTextField];
+
     
     [_emailTextField becomeFirstResponder];
     
-    
 }
 
-- (void)setupTextfield:(UITextField*)tf{
-//    [tf.layer setShadowOpacity:1.0f];
-//    [tf.layer setShadowOffset:CGSizeMake(1, 1)];
-//    [tf.layer setShadowColor:[UIColor blackColor].CGColor];
-    
-    [tf setValue:[UIColor colorWithRed:230.0/255.0 green:230.0/255.0 blue:230.0/255.0 alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
-    [tf setTintColor:[UIColor colorWithRed:227/255.0f green:90/255.0f blue:102/255.0f alpha:1.0f]];
-}
-
-- (void)setupButton:(UIButton*)btn{
-//    [btn.layer setShadowOpacity:1.0f];
-//    [btn.layer setShadowOffset:CGSizeMake(1, 1)];
-//    [btn.layer setShadowColor:[UIColor blackColor].CGColor];
-    
-}
 
 
 

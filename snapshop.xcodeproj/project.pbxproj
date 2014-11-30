@@ -54,6 +54,7 @@
 		1FBEB5231A0720B300717E9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBEB5221A0720B300717E9A /* Images.xcassets */; };
 		1FBEB5261A0720B300717E9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBEB5241A0720B300717E9A /* LaunchScreen.xib */; };
 		1FBEB5321A0720B300717E9A /* snapshopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEB5311A0720B300717E9A /* snapshopTests.m */; };
+		1FF5E9AC1A2BC13600F356E2 /* L3TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,8 @@
 		1FBEB52B1A0720B300717E9A /* snapshopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = snapshopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBEB5301A0720B300717E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FBEB5311A0720B300717E9A /* snapshopTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = snapshopTests.m; sourceTree = "<group>"; };
+		1FF5E9AA1A2BC13600F356E2 /* L3TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3TextField.h; sourceTree = "<group>"; };
+		1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3TextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -254,6 +257,8 @@
 			children = (
 				1F77B57D1A1E1D7E00D15BA2 /* L3LoginViewController.h */,
 				1F77B57E1A1E1D7E00D15BA2 /* L3LoginViewController.m */,
+				1FF5E9AA1A2BC13600F356E2 /* L3TextField.h */,
+				1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				1F17BF381A1EE57A00F403E1 /* L3MainTableViewCell.m in Sources */,
 				1F77B5571A1DFDC800D15BA2 /* AFURLConnectionOperation.m in Sources */,
 				1F77B5681A1DFDC800D15BA2 /* UIImageView+HighlightedWebCache.m in Sources */,
+				1FF5E9AC1A2BC13600F356E2 /* L3TextField.m in Sources */,
 				1F77B5561A1DFDC800D15BA2 /* AFSecurityPolicy.m in Sources */,
 				1F77B5601A1DFDC800D15BA2 /* SDWebImageDownloader.m in Sources */,
 				1F77B55E1A1DFDC800D15BA2 /* SDWebImageCompat.m in Sources */,
