@@ -13,11 +13,14 @@
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "L3MainTableViewCell.h"
+#import "AppDelegate.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define COLOR_MAIN UIColorFromRGB(0xE35A66)
 
-@interface ViewController () <UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>
+@interface ViewController () <UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>{
+    AppDelegate *delegate;
+}
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControll;
 @property (strong, nonatomic) UIStoryboard *storyBoard;
@@ -39,7 +42,7 @@
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     
-    
+    delegate = [[UIApplication sharedApplication]delegate];
     _storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
     _manager = [AFHTTPRequestOperationManager manager];
@@ -58,13 +61,16 @@
 
     alertView = [[SIAlertView alloc] initWithTitle:NSLocalizedString(@"사진 추가하기", @"사진 추가하기") andMessage:NSLocalizedString(@"사진을 추가할 방법을 선택하세요.", @"사진을 추가할 방법을 선택하세요.")];
 
-
+    UIImagePickerController __block *blockPicker = imgPicker;
+    ViewController __block *blockSelf = self;
+    UIStoryboard __block *blockStoryboard = _storyBoard;
+    
     [alertView addButtonWithTitle:NSLocalizedString(@"카메라로 사진 촬영", @"카메라로 사진 촬영")
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *siAlertView){
 
-                              [imgPicker setSourceType:UIImagePickerControllerSourceTypeCamera];
-                              [self presentViewController:imgPicker animated:NO completion:^{
+                              [blockPicker setSourceType:UIImagePickerControllerSourceTypeCamera];
+                              [blockSelf presentViewController:blockPicker animated:NO completion:^{
                                   NSLog(@"사진촬영 띄우기 완료");
                               }];
                           }];
@@ -73,15 +79,15 @@
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *siAlertView){
 
-                              [imgPicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-                              [self presentViewController:imgPicker animated:NO completion:nil];
+                              [blockPicker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                              [blockSelf presentViewController:blockPicker animated:NO completion:nil];
                           }];
 
     [alertView addButtonWithTitle:NSLocalizedString(@"웹에서 이미지 검색", @"웹에서 이미지 검색")
                              type:SIAlertViewButtonTypeDefault
                           handler:^(SIAlertView *siAlertView){
-                              L3NaverSearchViewController *searchViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"naverSearchViewController"];
-                              [self presentViewController:searchViewController animated:YES completion:nil];
+                              L3NaverSearchViewController *searchViewController = [blockStoryboard instantiateViewControllerWithIdentifier:@"naverSearchViewController"];
+                              [blockSelf presentViewController:searchViewController animated:YES completion:nil];
                           }];
 
     [alertView addButtonWithTitle:NSLocalizedString(@"취소", @"취소") type:SIAlertViewButtonTypeCancel handler:nil];
@@ -89,16 +95,16 @@
 }
 
 - (void)reloadTable{
-    NSLog(@"로드로드!");
+    NSLog(@"로드로드!, uid : %zd",delegate.uid);
     [_manager GET:@"http://125.209.199.221:8080/app/posts/"
-       parameters:@{@"sort":@1,@"start":@1}
+       parameters:@{@"sort":@1,@"start":@1,@"id":[NSNumber numberWithInteger:delegate.uid]}
           success:^(AFHTTPRequestOperation *operation, id responseObject){
-              NSLog(@"%@",responseObject[@"response"][@"data"]);
+//              NSLog(@"%@",responseObject[@"response"][@"data"]);
               _resultArray = responseObject[@"response"][@"data"];
               [_tableView reloadData];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error){
-              
+              NSLog(@"에러 : %@",error);
           }];
     
 }
@@ -203,6 +209,15 @@
 //    }];
 //    
 //}
+
+- (IBAction)logout:(id)sender {
+    
+    AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
+    [appDelegate.window setRootViewController:[_storyBoard instantiateViewControllerWithIdentifier:@"loginViewController"]];
+    
+    
+}
+
 
 
 #pragma mark - etc

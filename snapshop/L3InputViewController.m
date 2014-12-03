@@ -10,7 +10,7 @@
 
 #import "AFNetworking.h"
 #import "L3TextField.h"
-
+#import "AppDelegate.h"
 
 #define SUCCESS_STATUS @"10"
 
@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet L3TextField *urlTextfield;
 @property (weak, nonatomic) IBOutlet L3TextField *contentsTextfield;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (nonatomic) AppDelegate *delegate;
 
 
 @end
@@ -150,8 +151,8 @@
     NSDictionary *parameters = @{@"title":_titleTextfield.text,
                                  @"shopUrl":_urlTextfield.text,
                                  @"contents":_contentsTextfield.text,
-                                 @"price":@"123123",
-                                 @"id":@"test@example.com"};
+                                 @"price":@0,
+                                 @"id":[NSNumber numberWithInteger:_delegate.uid]};
     
     [manager POST:imagePostUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"image" fileName:imageName mimeType:@"image/jpeg"];
@@ -191,14 +192,5 @@
     return YES;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

@@ -54,6 +54,7 @@
 		1FBEB5231A0720B300717E9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1FBEB5221A0720B300717E9A /* Images.xcassets */; };
 		1FBEB5261A0720B300717E9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBEB5241A0720B300717E9A /* LaunchScreen.xib */; };
 		1FBEB5321A0720B300717E9A /* snapshopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEB5311A0720B300717E9A /* snapshopTests.m */; };
+		1FDCC0BA1A2EA5290040D866 /* L3JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDCC0B91A2EA5290040D866 /* L3JoinViewController.m */; };
 		1FF5E9AC1A2BC13600F356E2 /* L3TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */; };
 /* End PBXBuildFile section */
 
@@ -154,6 +155,8 @@
 		1FBEB52B1A0720B300717E9A /* snapshopTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = snapshopTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBEB5301A0720B300717E9A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1FBEB5311A0720B300717E9A /* snapshopTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = snapshopTests.m; sourceTree = "<group>"; };
+		1FDCC0B81A2EA5290040D866 /* L3JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3JoinViewController.h; sourceTree = "<group>"; };
+		1FDCC0B91A2EA5290040D866 /* L3JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3JoinViewController.m; sourceTree = "<group>"; };
 		1FF5E9AA1A2BC13600F356E2 /* L3TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3TextField.h; sourceTree = "<group>"; };
 		1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3TextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -259,6 +262,8 @@
 				1F77B57E1A1E1D7E00D15BA2 /* L3LoginViewController.m */,
 				1FF5E9AA1A2BC13600F356E2 /* L3TextField.h */,
 				1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */,
+				1FDCC0B81A2EA5290040D866 /* L3JoinViewController.h */,
+				1FDCC0B91A2EA5290040D866 /* L3JoinViewController.m */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -514,6 +519,7 @@
 				1F77B5541A1DFDC800D15BA2 /* AFHTTPSessionManager.m in Sources */,
 				1F77B5651A1DFDC800D15BA2 /* UIImage+GIF.m in Sources */,
 				1F77B5661A1DFDC800D15BA2 /* UIImage+MultiFormat.m in Sources */,
+				1FDCC0BA1A2EA5290040D866 /* L3JoinViewController.m in Sources */,
 				1F77B5581A1DFDC800D15BA2 /* AFURLRequestSerialization.m in Sources */,
 				1F77B5631A1DFDC800D15BA2 /* SDWebImagePrefetcher.m in Sources */,
 				1F77B5731A1E118000D15BA2 /* SIAlertView.m in Sources */,
