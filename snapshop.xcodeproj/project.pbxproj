@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		1F17BF381A1EE57A00F403E1 /* L3MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F17BF371A1EE57A00F403E1 /* L3MainTableViewCell.m */; };
+		1F4025571A3570FB002A7F85 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4025561A3570FB002A7F85 /* ODRefreshControl.m */; };
+		1F60BEB31A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F60BEA21A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings */; };
+		1F60BEB41A35F5C60084F0AA /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F60BEAA1A35F5C60084F0AA /* TOActivityChrome.m */; };
+		1F60BEB51A35F5C60084F0AA /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F60BEAC1A35F5C60084F0AA /* TOActivitySafari.m */; };
+		1F60BEB61A35F5C60084F0AA /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F60BEAE1A35F5C60084F0AA /* TOWebViewController.m */; };
+		1F60BEB71A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F60BEB01A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.m */; };
 		1F77B50D1A1DD8FB00D15BA2 /* testBG.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1F77B50C1A1DD8FB00D15BA2 /* testBG.jpg */; };
 		1F77B5151A1DDD9400D15BA2 /* NotoSansKR-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F77B50E1A1DDD9400D15BA2 /* NotoSansKR-Black.otf */; };
 		1F77B5161A1DDD9400D15BA2 /* NotoSansKR-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 1F77B50F1A1DDD9400D15BA2 /* NotoSansKR-Bold.otf */; };
@@ -71,6 +77,24 @@
 /* Begin PBXFileReference section */
 		1F17BF361A1EE57A00F403E1 /* L3MainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3MainTableViewCell.h; sourceTree = "<group>"; };
 		1F17BF371A1EE57A00F403E1 /* L3MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3MainTableViewCell.m; sourceTree = "<group>"; };
+		1F4025551A3570FB002A7F85 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
+		1F4025561A3570FB002A7F85 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		1F60BEA31A35F5C60084F0AA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
+		1F60BEA41A35F5C60084F0AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
+		1F60BEA51A35F5C60084F0AA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
+		1F60BEA61A35F5C60084F0AA /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
+		1F60BEA71A35F5C60084F0AA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
+		1F60BEA81A35F5C60084F0AA /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
+		1F60BEA91A35F5C60084F0AA /* TOActivityChrome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOActivityChrome.h; sourceTree = "<group>"; };
+		1F60BEAA1A35F5C60084F0AA /* TOActivityChrome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivityChrome.m; sourceTree = "<group>"; };
+		1F60BEAB1A35F5C60084F0AA /* TOActivitySafari.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOActivitySafari.h; sourceTree = "<group>"; };
+		1F60BEAC1A35F5C60084F0AA /* TOActivitySafari.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivitySafari.m; sourceTree = "<group>"; };
+		1F60BEAD1A35F5C60084F0AA /* TOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOWebViewController.h; sourceTree = "<group>"; };
+		1F60BEAE1A35F5C60084F0AA /* TOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOWebViewController.m; sourceTree = "<group>"; };
+		1F60BEAF1A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TOWebViewControllerIcons.h"; sourceTree = "<group>"; };
+		1F60BEB01A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TOWebViewControllerIcons.m"; sourceTree = "<group>"; };
+		1F60BEB11A35F5C60084F0AA /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/TOWebViewControllerLocalizable.strings"; sourceTree = "<group>"; };
+		1F60BEB21A35F5C60084F0AA /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/TOWebViewControllerLocalizable.strings"; sourceTree = "<group>"; };
 		1F77B50C1A1DD8FB00D15BA2 /* testBG.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testBG.jpg; sourceTree = "<group>"; };
 		1F77B50E1A1DDD9400D15BA2 /* NotoSansKR-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Black.otf"; sourceTree = "<group>"; };
 		1F77B50F1A1DDD9400D15BA2 /* NotoSansKR-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansKR-Bold.otf"; sourceTree = "<group>"; };
@@ -179,6 +203,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F4025541A3570FB002A7F85 /* ODRefreshControl */ = {
+			isa = PBXGroup;
+			children = (
+				1F4025551A3570FB002A7F85 /* ODRefreshControl.h */,
+				1F4025561A3570FB002A7F85 /* ODRefreshControl.m */,
+			);
+			path = ODRefreshControl;
+			sourceTree = "<group>";
+		};
+		1F60BEA11A35F5C60084F0AA /* TOWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				1F60BEA21A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings */,
+				1F60BEA91A35F5C60084F0AA /* TOActivityChrome.h */,
+				1F60BEAA1A35F5C60084F0AA /* TOActivityChrome.m */,
+				1F60BEAB1A35F5C60084F0AA /* TOActivitySafari.h */,
+				1F60BEAC1A35F5C60084F0AA /* TOActivitySafari.m */,
+				1F60BEAD1A35F5C60084F0AA /* TOWebViewController.h */,
+				1F60BEAE1A35F5C60084F0AA /* TOWebViewController.m */,
+				1F60BEAF1A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.h */,
+				1F60BEB01A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.m */,
+			);
+			path = TOWebViewController;
+			sourceTree = "<group>";
+		};
 		1F77B51C1A1DFDC800D15BA2 /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +304,7 @@
 			path = SIAlertView;
 			sourceTree = "<group>";
 		};
-		1F77B5771A1E1CD200D15BA2 /* Login */ = {
+		1F77B5771A1E1CD200D15BA2 /* Login/Join */ = {
 			isa = PBXGroup;
 			children = (
 				1F77B57D1A1E1D7E00D15BA2 /* L3LoginViewController.h */,
@@ -265,7 +314,7 @@
 				1FDCC0B81A2EA5290040D866 /* L3JoinViewController.h */,
 				1FDCC0B91A2EA5290040D866 /* L3JoinViewController.m */,
 			);
-			name = Login;
+			name = Login/Join;
 			sourceTree = "<group>";
 		};
 		1F77B5781A1E1CDB00D15BA2 /* MainList */ = {
@@ -282,6 +331,8 @@
 		1F77B5791A1E1CF100D15BA2 /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				1F60BEA11A35F5C60084F0AA /* TOWebViewController */,
+				1F4025541A3570FB002A7F85 /* ODRefreshControl */,
 				1F77B56E1A1E118000D15BA2 /* SIAlertView */,
 				1F77B51C1A1DFDC800D15BA2 /* AFNetworking */,
 				1F77B5301A1DFDC800D15BA2 /* SDWebImage */,
@@ -351,7 +402,7 @@
 				1FBEB51A1A0720B300717E9A /* AppDelegate.m */,
 				1FBEB51F1A0720B300717E9A /* Main.storyboard */,
 				1F77B57C1A1E1D3A00D15BA2 /* InputView */,
-				1F77B5771A1E1CD200D15BA2 /* Login */,
+				1F77B5771A1E1CD200D15BA2 /* Login/Join */,
 				1F77B5781A1E1CDB00D15BA2 /* MainList */,
 				1F77B57B1A1E1D3200D15BA2 /* NaverSearch */,
 				1F77B5791A1E1CF100D15BA2 /* OpenSource */,
@@ -450,6 +501,13 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				es,
+				ja,
+				ko,
+				pl,
+				"zh-Hans",
+				"zh-Hant",
 			);
 			mainGroup = 1FBEB5091A0720B300717E9A;
 			productRefGroup = 1FBEB5131A0720B300717E9A /* Products */;
@@ -469,6 +527,7 @@
 			files = (
 				1F77B5171A1DDD9400D15BA2 /* NotoSansKR-DemiLight.otf in Resources */,
 				1FBEB5211A0720B300717E9A /* Main.storyboard in Resources */,
+				1F60BEB31A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings in Resources */,
 				1F77B5181A1DDD9400D15BA2 /* NotoSansKR-Light.otf in Resources */,
 				1F77B5191A1DDD9400D15BA2 /* NotoSansKR-Medium.otf in Resources */,
 				1F77B51A1A1DDD9400D15BA2 /* NotoSansKR-Regular.otf in Resources */,
@@ -502,6 +561,7 @@
 				1F77B5531A1DFDC800D15BA2 /* AFHTTPRequestOperationManager.m in Sources */,
 				1F77B5641A1DFDC800D15BA2 /* UIButton+WebCache.m in Sources */,
 				1F77B5611A1DFDC800D15BA2 /* SDWebImageDownloaderOperation.m in Sources */,
+				1F60BEB51A35F5C60084F0AA /* TOActivitySafari.m in Sources */,
 				1F77B5551A1DFDC800D15BA2 /* AFNetworkReachabilityManager.m in Sources */,
 				1F77B55D1A1DFDC800D15BA2 /* SDImageCache.m in Sources */,
 				1F77B55C1A1DFDC800D15BA2 /* NSData+ImageContentType.m in Sources */,
@@ -511,7 +571,10 @@
 				1F77B5761A1E18DD00D15BA2 /* L3NaverSearchViewController.m in Sources */,
 				1F17BF381A1EE57A00F403E1 /* L3MainTableViewCell.m in Sources */,
 				1F77B5571A1DFDC800D15BA2 /* AFURLConnectionOperation.m in Sources */,
+				1F60BEB61A35F5C60084F0AA /* TOWebViewController.m in Sources */,
+				1F4025571A3570FB002A7F85 /* ODRefreshControl.m in Sources */,
 				1F77B5681A1DFDC800D15BA2 /* UIImageView+HighlightedWebCache.m in Sources */,
+				1F60BEB71A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				1FF5E9AC1A2BC13600F356E2 /* L3TextField.m in Sources */,
 				1F77B5561A1DFDC800D15BA2 /* AFSecurityPolicy.m in Sources */,
 				1F77B5601A1DFDC800D15BA2 /* SDWebImageDownloader.m in Sources */,
@@ -522,6 +585,7 @@
 				1FDCC0BA1A2EA5290040D866 /* L3JoinViewController.m in Sources */,
 				1F77B5581A1DFDC800D15BA2 /* AFURLRequestSerialization.m in Sources */,
 				1F77B5631A1DFDC800D15BA2 /* SDWebImagePrefetcher.m in Sources */,
+				1F60BEB41A35F5C60084F0AA /* TOActivityChrome.m in Sources */,
 				1F77B5731A1E118000D15BA2 /* SIAlertView.m in Sources */,
 				1F77B55A1A1DFDC800D15BA2 /* AFURLSessionManager.m in Sources */,
 				1F77B56D1A1E00BC00D15BA2 /* L3InputViewController.m in Sources */,
@@ -554,6 +618,21 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		1F60BEA21A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1F60BEA31A35F5C60084F0AA /* de */,
+				1F60BEA41A35F5C60084F0AA /* en */,
+				1F60BEA51A35F5C60084F0AA /* es */,
+				1F60BEA61A35F5C60084F0AA /* ja */,
+				1F60BEA71A35F5C60084F0AA /* ko */,
+				1F60BEA81A35F5C60084F0AA /* pl */,
+				1F60BEB11A35F5C60084F0AA /* zh-Hans */,
+				1F60BEB21A35F5C60084F0AA /* zh-Hant */,
+			);
+			name = TOWebViewControllerLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		1FBEB51F1A0720B300717E9A /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

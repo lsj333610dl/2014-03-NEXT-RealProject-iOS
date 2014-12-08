@@ -49,7 +49,7 @@ const NSInteger DISPLAY = 20;
     self.start = 1;
     self.isLoading = NO;
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(close:) name:@"SavePost" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(close:) name:@"SaveSuccess" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -109,6 +109,8 @@ const NSInteger DISPLAY = 20;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     
 //    NSURL *url = [NSURL URLWithString:_resultArray[indexPath.row][@"link"]];
     UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -117,12 +119,26 @@ const NSInteger DISPLAY = 20;
     inputVC.urlString = _resultArray[indexPath.row][@"link"];
     inputVC.titleString = _searchBar.text;
     inputVC.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_resultArray[indexPath.row][@"image"]]]];
+//    inputVC.priceString = [_resultArray[indexPath.row][@"price"] stringValue];
     
-    NSLog(@"%@",_resultArray[indexPath.row][@"image"]);
-//    inputVC.priceString = _resultArray[indexPath.row][@"lprice"];
+    if ([_resultArray[indexPath.row][@"hprice"] integerValue] == 0) {
+        
+        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
+        NSString *lpriceString = [formatter stringFromNumber:lprice];
+        inputVC.priceString = [NSString stringWithFormat:@"%@원",lpriceString];
+    }
+    else {
+        
+        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
+        NSString *lpriceString = [formatter stringFromNumber:lprice];
+        
+        NSNumber *hprice = [formatter numberFromString:[_resultArray[indexPath.row][@"hprice"] stringValue]];
+        NSString *hpriceString = [formatter stringFromNumber:hprice];
+        
+        inputVC.priceString = [NSString stringWithFormat:@"%@원 ~ %@원",lpriceString,hpriceString];
+    }
     
     [self presentViewController:inputVC animated:YES completion:^{
-//        [self dismissViewControllerAnimated:NO completion:nil];
     }];
     
 }
@@ -275,9 +291,6 @@ const NSInteger DISPLAY = 20;
         });
         
     }
-    
-    
-    
     
 }
 

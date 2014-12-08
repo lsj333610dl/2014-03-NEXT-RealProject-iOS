@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet L3TextField *contentsTextfield;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) AppDelegate *delegate;
+@property (weak, nonatomic) IBOutlet L3TextField *priceTextfield;
 
 
 @end
@@ -41,26 +42,13 @@
         [self.imageView setImage:_image];
     }
     
-//    if (_titleString) {
-//        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithData:[_titleString dataUsingEncoding:NSUnicodeStringEncoding] options:@{ NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType } documentAttributes:nil error:nil];
-//        _titleTextfield.attributedText = attributedString;
-//    }
+    _delegate = [[UIApplication sharedApplication]delegate];
     
-    _titleTextfield.text = _titleString;
+    self.titleTextfield.text = _titleString;
     self.urlTextfield.text = _urlString;
-    
-//    [self.cancelButton.layer setShadowColor:[UIColor blackColor].CGColor];
-//    [self.cancelButton.layer setShadowOffset:CGSizeMake(1, 1)];
-//    [self.cancelButton.layer setShadowOpacity:0.5f];
-//
-//    [self.saveButton.layer setShadowColor:[UIColor blackColor].CGColor];
-//    [self.saveButton.layer setShadowOffset:CGSizeMake(1, 1)];
-//    [self.saveButton.layer setShadowOpacity:0.5f];
-    
-    [self setupTextfield:self.titleTextfield];
-    [self setupTextfield:self.urlTextfield];
-    [self setupTextfield:self.contentsTextfield];
+    self.priceTextfield.text = _priceString;
 
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillAnimate:)
                                                  name:UIKeyboardWillShowNotification
@@ -73,15 +61,6 @@
     
     [_titleTextfield becomeFirstResponder];
     
-}
-
-- (void)setupTextfield:(UITextField*)tf{
-//    [tf.layer setShadowOpacity:1.0f];
-//    [tf.layer setShadowOffset:CGSizeMake(1, 1)];
-//    [tf.layer setShadowColor:[UIColor blackColor].CGColor];
-    
-//    [tf setValue:[UIColor colorWithRed:230/255.0f green:230/255.0f blue:220/255.0f alpha:1.0] forKeyPath:@"_placeholderLabel.textColor"];
-//    [tf setTintColor:[UIColor colorWithRed:78/255.0f green:197/255.0f blue:152/255.0f alpha:1.0f]];
 }
 
 
@@ -133,17 +112,52 @@
 
 - (IBAction)save:(id)sender{
     
+    ///1. imageUrl로
+//    [self savePostWithImageUrlString:@"http://cfile217.uf.daum.net/image/1505C9384DC8E7BF1FF9F2"];
     
     
+    ///2. image파일로
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    [formatter setDateFormat:@"yy-MM-dd-hh:mm:ss"];
+    NSString *dateString = [formatter stringFromDate:[NSDate date]];
     
     NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 0.5);
-    [self saveImage:imageData forImageName:@"testImage.jpg"];
+    [self savePostWithImageData:imageData imageName:[NSString stringWithFormat:@"%zd_%@_%@.jpeg",_delegate.uid,_titleTextfield.text,dateString]];
     
     
 }
 
+-(void)savePostWithImageUrlString:(NSString*)imageUrlString{
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString *imagePostUrl = @"http://125.209.199.221:8080/app/posts/newurl";
+    
+    NSDictionary *parameters = @{@"title":_titleTextfield.text,
+                                 @"shopUrl":_urlTextfield.text,
+                                 @"contents":_contentsTextfield.text,
+                                 @"price":_priceTextfield.text,
+                                 @"id":[NSNumber numberWithInteger:_delegate.uid],
+                                 @"image":imagePostUrl};
+    NSLog(@"uid : %zd",_delegate.uid);
+    NSLog(@"파라미터 : %@",parameters);
+    
+    [manager POST:imagePostUrl
+       parameters:parameters
+          success:^(AFHTTPRequestOperation *operation, id responseObject) {
+              
+              if ([responseObject[@"status"] isEqualToNumber:@10]) {
+                  [self dismissViewControllerAnimated:YES completion:nil];
+                  [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveSuccess" object:nil];
+              }
+              
+          } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+              NSLog(@"%@",[error localizedDescription]);
+              NSLog(@"%@",operation);
+              [[[UIAlertView alloc]initWithTitle:@"저장 실패" message:@"저장에 실패했습니다." delegate:nil cancelButtonTitle:@"확인" otherButtonTitles:nil] show];
+          }];
+}
 
--(void) saveImage: (NSData *)imageData forImageName:(NSString*)imageName{
+-(void)savePostWithImageData:(NSData*)imageData imageName:(NSString*)imageName{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSString *imagePostUrl = @"http://125.209.199.221:8080/app/posts/new";
@@ -151,14 +165,19 @@
     NSDictionary *parameters = @{@"title":_titleTextfield.text,
                                  @"shopUrl":_urlTextfield.text,
                                  @"contents":_contentsTextfield.text,
-                                 @"price":@0,
+                                 @"price":_priceTextfield.text,
                                  @"id":[NSNumber numberWithInteger:_delegate.uid]};
+    NSLog(@"파라미터 : %@",parameters);
     
-    [manager POST:imagePostUrl parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [manager POST:imagePostUrl
+       parameters:parameters
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         [formData appendPartWithFileData:imageData name:@"image" fileName:imageName mimeType:@"image/jpeg"];
+    
+        NSLog(@"imageName : %@",imageName);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"%@,%@",operation,responseObject[@"status"]);
-        if ([responseObject[@"status"] isEqualToString:SUCCESS_STATUS]) {
+        
+        if ([responseObject[@"status"] isEqualToNumber:@10]) {
             NSLog(@"저장 성공");
             [self dismissViewControllerAnimated:YES completion:nil];
             

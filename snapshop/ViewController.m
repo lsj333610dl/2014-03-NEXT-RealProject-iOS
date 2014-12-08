@@ -14,25 +14,33 @@
 #import "UIImageView+WebCache.h"
 #import "L3MainTableViewCell.h"
 #import "AppDelegate.h"
+#import "ODRefreshControl.h"
+#import "TOWebViewController/TOWebViewController.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-#define COLOR_MAIN UIColorFromRGB(0xE35A66)
+#define COLOR_MAIN UIColorFromRGB(0x4EC598)
 
 @interface ViewController () <UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>{
     AppDelegate *delegate;
+    ODRefreshControl *refreshControl;
 }
 
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedControll;
 @property (strong, nonatomic) UIStoryboard *storyBoard;
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 @property (strong, nonatomic) NSMutableArray *resultArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic) SIAlertView *alertView;
 @property (strong, nonatomic) UIImagePickerController *imgPicker;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sortSeg;
+
+@property (nonatomic) NSUInteger start;
+@property (nonatomic) BOOL isLoading;
+@property (nonatomic) NSUInteger total;
 
 @end
 
 @implementation ViewController
+
 
 @synthesize alertView;
 @synthesize imgPicker;
@@ -48,10 +56,11 @@
     _manager = [AFHTTPRequestOperationManager manager];
     _resultArray = [NSMutableArray new];
     
+    _start = 1;
+    
     [self reloadTable];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SavePost" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SaveSuccess" object:nil];
 
 
     imgPicker = [UIImagePickerController new];
@@ -92,16 +101,38 @@
 
     [alertView addButtonWithTitle:NSLocalizedString(@"취소", @"취소") type:SIAlertViewButtonTypeCancel handler:nil];
 
+    //refresh
+    refreshControl = [[ODRefreshControl alloc] initInScrollView:_tableView];
+//    [refreshControl setFrame:CGRectOffset(refreshControl.frame, 0, 64)];
+    [refreshControl addTarget:self action:@selector(reloadTable) forControlEvents:UIControlEventValueChanged];
+    [refreshControl setTintColor:COLOR_MAIN];
+    
+    
+//    [_manager DELETE:@"http://125.209.199.221:8080/app/posts/delete/31" parameters:@{@"uid":@6} success:nil failure:nil];
+    
 }
 
 - (void)reloadTable{
-    NSLog(@"로드로드!, uid : %zd",delegate.uid);
+    NSLog(@"로드로드!");
+    [_tableView setContentOffset:CGPointZero animated:NO];
+    
+    _start = 1;
+    
     [_manager GET:@"http://125.209.199.221:8080/app/posts/"
-       parameters:@{@"sort":@1,@"start":@1,@"id":[NSNumber numberWithInteger:delegate.uid]}
+       parameters:@{@"sort":[NSNumber numberWithInteger:_sortSeg.selectedSegmentIndex],
+                    @"start":[NSNumber numberWithUnsignedInteger:_start],
+                    @"id":[NSNumber numberWithInteger:delegate.uid]}
           success:^(AFHTTPRequestOperation *operation, id responseObject){
-//              NSLog(@"%@",responseObject[@"response"][@"data"]);
-              _resultArray = responseObject[@"response"][@"data"];
+              _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+              
+              [_resultArray removeAllObjects];
+              
+              for (id object in responseObject[@"response"][@"data"]) {
+                  [_resultArray addObject:object];
+              }
+              
               [_tableView reloadData];
+              [refreshControl endRefreshing];
           }
           failure:^(AFHTTPRequestOperation *operation, NSError *error){
               NSLog(@"에러 : %@",error);
@@ -131,7 +162,8 @@
     
     L3InputViewController *inputViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"inputViewController"];
     
-    [inputViewController setImage:image];
+    inputViewController.image = image;
+//    [inputViewController setImage:image];
     //    [contentsViewController.blurredImageView setImageToBlur:image blurRadius:20.0f completionBlock:^{
     //    }];
     [self presentViewController:inputViewController animated:YES completion:nil];
@@ -159,56 +191,93 @@
     NSNumberFormatter *formatter = [NSNumberFormatter new];
     [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
     
+    NSNumber *priceNumber = [formatter numberFromString:_resultArray[indexPath.row][@"price"] ];
+    NSString *priceString = [formatter stringFromNumber:priceNumber];
+    
     
     [cell.bgImageView sd_setImageWithURL:_resultArray[indexPath.row][@"imgUrl"]];
     [cell.titleLabel setText:_resultArray[indexPath.row][@"title"]];
-//    
-//    if ([_resultArray[indexPath.row][@"hprice"] integerValue] == 0) {
-//        
-//        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
-//        NSString *lpriceString = [formatter stringFromNumber:lprice];
-//        cell.priceLabel.text = [NSString stringWithFormat:@"%@원",lpriceString];
-//    }
-//    else {
-//        
-//        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
-//        NSString *lpriceString = [formatter stringFromNumber:lprice];
-//        
-//        NSNumber *hprice = [formatter numberFromString:[_resultArray[indexPath.row][@"hprice"] stringValue]];
-//        NSString *hpriceString = [formatter stringFromNumber:hprice];
-//        
-//        cell.priceLabel.text = [NSString stringWithFormat:@"%@원 ~ %@원",lpriceString,hpriceString];
-//    }
-//    
-//    
-//    if ( (indexPath.row == [_resultArray count]-1) && !_isLoading && _total>(_start+DISPLAY)) {
-//        _isLoading = YES;
-//        [self loadMore];
-//        NSLog(@"좀더");
-//    }
+    [cell.writerLabel setText:_resultArray[indexPath.row][@"writer"]];
+    [cell.priceLabel setText:[NSString stringWithFormat:@"%@원",priceString]];
+    
+    
+    if ( (indexPath.row == [_resultArray count]-1) && !_isLoading ) {
+        _isLoading = YES;
+        [self loadMore];
+        NSLog(@"좀더");
+    }
+
     
     return cell;
 }
 
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    
-//    
-//    //    NSURL *url = [NSURL URLWithString:_resultArray[indexPath.row][@"link"]];
-//    UIStoryboard *storyBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//    L3InputViewController *inputVC = [storyBoard instantiateViewControllerWithIdentifier:@"inputViewController"];
-//    
-//    inputVC.urlString = _resultArray[indexPath.row][@"link"];
-//    inputVC.titleString = _searchBar.text;
-//    inputVC.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_resultArray[indexPath.row][@"image"]]]];
-//    
-//    NSLog(@"%@",_resultArray[indexPath.row][@"image"]);
-//    //    inputVC.priceString = _resultArray[indexPath.row][@"lprice"];
-//    
-//    [self presentViewController:inputVC animated:YES completion:^{
-//        //        [self dismissViewControllerAnimated:NO completion:nil];
-//    }];
-//    
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+ 
+    if ([_resultArray[indexPath.row][@"shopUrl"] isEqualToString:@""]) {
+        return;
+    }
+    
+    NSURL *url = [NSURL URLWithString:_resultArray[indexPath.row][@"shopUrl"]];
+    TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];
+    
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webViewController] animated:YES completion:nil];
+    
+}
+
+
+- (void)loadMore{
+    dispatch_queue_t globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_queue_t mainQueue = dispatch_get_main_queue();
+    dispatch_async(globalQueue, ^{
+        
+        dispatch_async(mainQueue, ^{
+            [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+        });
+        _isLoading = YES;
+        
+        
+        if (_isLoading) {
+            
+            _start+=1;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+                
+                [_manager GET:@"http://125.209.199.221:8080/app/posts/"
+                   parameters:@{@"sort":[NSNumber numberWithInteger:_sortSeg.selectedSegmentIndex],
+                                @"start":[NSNumber numberWithUnsignedInteger:_start],
+                                @"id":[NSNumber numberWithInteger:delegate.uid]}
+                 
+                      success:^(AFHTTPRequestOperation *operation, id responseObject){
+                          NSLog(@"성공 %@",responseObject);
+                          for (id object in responseObject[@"response"][@"data"]) {
+                              [_resultArray addObject:object];
+                              [_tableView reloadData];
+                          }
+                          
+                      }
+                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                          NSLog(@"에러 : %@",error);
+                      }];
+
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    NSLog(@"끝났다.");
+                    _isLoading = NO;
+                    
+                    [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+                });
+            });
+            
+        }
+        
+    });
+}
+
+
+- (IBAction)segValueChang:(id)sender {
+    
+    [self reloadTable];
+    
+}
 
 - (IBAction)logout:(id)sender {
     

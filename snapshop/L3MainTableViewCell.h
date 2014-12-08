@@ -12,5 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageView;
 @property (weak, nonatomic) IBOutlet UIButton *likeButton;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *writerLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
 @end

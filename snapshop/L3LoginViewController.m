@@ -65,10 +65,12 @@
               success:^(AFHTTPRequestOperation *operation, id responseObject){
                   NSLog(@"%@",[responseObject objectForKey:@"status"]);
                   
-                  if ([[responseObject objectForKey:@"status"] isEqualToString:SUCCESS_STATUS]) {
+                  if ([[responseObject objectForKey:@"status"] isEqual:SUCCESS_STATUS]) {
                       
                       AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
                       [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];
+                      NSLog(@"%zd",delegate.uid);
+                      
                       
                       ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
                       
