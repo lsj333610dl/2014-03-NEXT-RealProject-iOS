@@ -49,7 +49,7 @@ const NSInteger DISPLAY = 20;
     self.start = 1;
     self.isLoading = NO;
     
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(close:) name:@"SaveSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(close:) name:@"SavePost" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {

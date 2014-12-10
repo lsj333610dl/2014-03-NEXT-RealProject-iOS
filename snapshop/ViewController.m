@@ -200,6 +200,7 @@
     [cell.titleLabel setText:_resultArray[indexPath.row][@"title"]];
     [cell.writerLabel setText:_resultArray[indexPath.row][@"writer"]];
     [cell.priceLabel setText:[NSString stringWithFormat:@"%@원",priceString]];
+    [cell.snapCountLabel setText:[NSString stringWithFormat:@"%zd snaps",[_resultArray[indexPath.row][@"numLike"] integerValue]]];
     
     if ([(NSNumber*)_resultArray[indexPath.row][@"like"] isEqualToNumber:@1]) {
         NSLog(@"좋아연,%@",_resultArray[indexPath.row][@"like"]);
@@ -211,6 +212,7 @@
         cell.likeButton.tag = 0;
         [cell unsnap];
     }
+    
     
     
     if ( (indexPath.row == [_resultArray count]-1) && !_isLoading ) {

@@ -566,6 +566,7 @@
                                             <outlet property="bgImageView" destination="GZ7-dm-3h7" id="toT-Tb-sJn"/>
                                             <outlet property="likeButton" destination="UpO-Ss-bsO" id="MGh-48-JKU"/>
                                             <outlet property="priceLabel" destination="0ss-Sw-KIS" id="aow-ut-0A8"/>
+                                            <outlet property="snapCountLabel" destination="d3t-5o-hmt" id="NUz-Wk-Pqg"/>
                                             <outlet property="titleLabel" destination="349-wZ-2Pf" id="sAm-Dr-2LY"/>
                                             <outlet property="writerLabel" destination="odl-bC-Iwc" id="qXZ-d9-Lif"/>
                                         </connections>
