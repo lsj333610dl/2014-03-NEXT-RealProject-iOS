@@ -60,7 +60,7 @@
     
     [self reloadTable];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SaveSuccess" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SavePost" object:nil];
 
 
     imgPicker = [UIImagePickerController new];
@@ -131,6 +131,7 @@
                   [_resultArray addObject:object];
               }
               
+              NSLog(@"%@",_resultArray);
               [_tableView reloadData];
               [refreshControl endRefreshing];
           }
@@ -216,6 +217,17 @@
     if ([_resultArray[indexPath.row][@"shopUrl"] isEqualToString:@""]) {
         return;
     }
+    
+    NSString *readUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/read",[_resultArray[indexPath.row][@"pid"] integerValue]];
+    
+    [_manager POST:readUrlString
+        parameters:@{@"pid":_resultArray[indexPath.row][@"pid"]}
+           success:^(AFHTTPRequestOperation *op, id ro){
+               NSLog(@"%@",ro);
+    }
+           failure:^(AFHTTPRequestOperation *op, NSError *error){
+               NSLog(@"%@",error);
+           }];
     
     NSURL *url = [NSURL URLWithString:_resultArray[indexPath.row][@"shopUrl"]];
     TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];
