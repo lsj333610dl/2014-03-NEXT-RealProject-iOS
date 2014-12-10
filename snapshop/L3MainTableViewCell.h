@@ -15,4 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *writerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 
+- (void)snaped;
+- (void)unsnap;
+
 @end

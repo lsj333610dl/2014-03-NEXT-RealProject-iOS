@@ -201,6 +201,17 @@
     [cell.writerLabel setText:_resultArray[indexPath.row][@"writer"]];
     [cell.priceLabel setText:[NSString stringWithFormat:@"%@원",priceString]];
     
+    if ([(NSNumber*)_resultArray[indexPath.row][@"like"] isEqualToNumber:@1]) {
+        NSLog(@"좋아연,%@",_resultArray[indexPath.row][@"like"]);
+        cell.likeButton.tag = 1;
+        [cell snaped];
+    }
+    
+    else{
+        cell.likeButton.tag = 0;
+        [cell unsnap];
+    }
+    
     
     if ( (indexPath.row == [_resultArray count]-1) && !_isLoading ) {
         _isLoading = YES;
@@ -300,6 +311,45 @@
 }
 
 
+- (IBAction)snap:(UIButton*)sender {
+    NSLog(@"snap");
+    L3MainTableViewCell *clickedCell = (L3MainTableViewCell *)[[[sender superview] superview] superview];
+    NSIndexPath *clickedButtonPath = [self.tableView indexPathForCell:clickedCell];
+    
+    NSLog(@"%@",@{@"pid":_resultArray[clickedButtonPath.row][@"pid"],@"uid":[NSNumber numberWithInteger:delegate.uid]});
+    
+    
+    //snap 추가
+    if (sender.tag == 0) {
+        [_manager POST:@"http://125.209.199.221:8080/app/posts/like"
+            parameters:@{@"pid":_resultArray[clickedButtonPath.row][@"pid"],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
+             
+                NSLog(@"스냅 성공 : %@",ro);
+                sender.tag=1;
+                [clickedCell snaped];
+            }
+         
+               failure:^(AFHTTPRequestOperation *op, NSError *error){
+                   NSLog(@"에라이 추가 에라다: %@",error);
+               }];
+    }
+    
+    //snap 취소
+    else if(sender.tag == 1){
+        [_manager DELETE:@"http://125.209.199.221:8080/app/posts/like"
+            parameters:@{@"pid":[NSNumber numberWithInteger:clickedButtonPath.row],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
+                
+                NSLog(@"스냅 취소성공 : %@",ro);
+                sender.tag=0;
+                [clickedCell unsnap];
+            }
+         
+               failure:^(AFHTTPRequestOperation *op, NSError *error){
+                   NSLog(@"에라이 취소 에라다 : %@",error);
+               }];
+    }
+    
+}
 
 #pragma mark - etc
 

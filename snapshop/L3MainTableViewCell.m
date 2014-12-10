@@ -20,4 +20,13 @@
     // Configure the view for the selected state
 }
 
+
+- (void)snaped{
+    [_likeButton setTitle:@"Unsnap" forState:UIControlStateNormal];
+}
+
+- (void)unsnap{
+    [_likeButton setTitle:@"snap" forState:UIControlStateNormal];
+}
+
 @end
