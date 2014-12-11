@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "L3TextField.h"
 #import "AppDelegate.h"
+#import "SVProgressHUD.h"
 
 #define SUCCESS_STATUS @"10"
 
@@ -153,7 +154,8 @@
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
               NSLog(@"%@",[error localizedDescription]);
               NSLog(@"%@",operation);
-              [[[UIAlertView alloc]initWithTitle:@"저장 실패" message:@"저장에 실패했습니다." delegate:nil cancelButtonTitle:@"확인" otherButtonTitles:nil] show];
+              
+              [SVProgressHUD showErrorWithStatus:@"저장 실패 ㅠㅠ"];
           }];
 }
 
@@ -187,8 +189,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@",[error localizedDescription]);
         NSLog(@"%@",operation);
+        [SVProgressHUD showErrorWithStatus:@"저장 실패 ㅠㅠ"];
         
-        [[[UIAlertView alloc]initWithTitle:@"저장 실패" message:@"저장에 실패했습니다." delegate:nil cancelButtonTitle:@"확인" otherButtonTitles:nil] show];
     }];
 }
 

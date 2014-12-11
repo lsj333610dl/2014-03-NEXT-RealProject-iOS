@@ -61,6 +61,9 @@
 		1FBEB5261A0720B300717E9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1FBEB5241A0720B300717E9A /* LaunchScreen.xib */; };
 		1FBEB5321A0720B300717E9A /* snapshopTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBEB5311A0720B300717E9A /* snapshopTests.m */; };
 		1FDCC0BA1A2EA5290040D866 /* L3JoinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FDCC0B91A2EA5290040D866 /* L3JoinViewController.m */; };
+		1FF2EB631A3976EA005029E2 /* SVIndefiniteAnimatedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2EB5E1A3976EA005029E2 /* SVIndefiniteAnimatedView.m */; };
+		1FF2EB641A3976EA005029E2 /* SVProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1FF2EB601A3976EA005029E2 /* SVProgressHUD.bundle */; };
+		1FF2EB651A3976EA005029E2 /* SVProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF2EB621A3976EA005029E2 /* SVProgressHUD.m */; };
 		1FF5E9AC1A2BC13600F356E2 /* L3TextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */; };
 /* End PBXBuildFile section */
 
@@ -181,6 +184,12 @@
 		1FBEB5311A0720B300717E9A /* snapshopTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = snapshopTests.m; sourceTree = "<group>"; };
 		1FDCC0B81A2EA5290040D866 /* L3JoinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3JoinViewController.h; sourceTree = "<group>"; };
 		1FDCC0B91A2EA5290040D866 /* L3JoinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3JoinViewController.m; sourceTree = "<group>"; };
+		1FF2EB5D1A3976EA005029E2 /* SVIndefiniteAnimatedView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVIndefiniteAnimatedView.h; sourceTree = "<group>"; };
+		1FF2EB5E1A3976EA005029E2 /* SVIndefiniteAnimatedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVIndefiniteAnimatedView.m; sourceTree = "<group>"; };
+		1FF2EB5F1A3976EA005029E2 /* SVProgressHUD-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SVProgressHUD-Prefix.pch"; sourceTree = "<group>"; };
+		1FF2EB601A3976EA005029E2 /* SVProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SVProgressHUD.bundle; sourceTree = "<group>"; };
+		1FF2EB611A3976EA005029E2 /* SVProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVProgressHUD.h; sourceTree = "<group>"; };
+		1FF2EB621A3976EA005029E2 /* SVProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVProgressHUD.m; sourceTree = "<group>"; };
 		1FF5E9AA1A2BC13600F356E2 /* L3TextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3TextField.h; sourceTree = "<group>"; };
 		1FF5E9AB1A2BC13600F356E2 /* L3TextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3TextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -331,6 +340,7 @@
 		1F77B5791A1E1CF100D15BA2 /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				1FF2EB5C1A3976EA005029E2 /* SVProgressHUD */,
 				1F60BEA11A35F5C60084F0AA /* TOWebViewController */,
 				1F4025541A3570FB002A7F85 /* ODRefreshControl */,
 				1F77B56E1A1E118000D15BA2 /* SIAlertView */,
@@ -438,6 +448,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1FF2EB5C1A3976EA005029E2 /* SVProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				1FF2EB5D1A3976EA005029E2 /* SVIndefiniteAnimatedView.h */,
+				1FF2EB5E1A3976EA005029E2 /* SVIndefiniteAnimatedView.m */,
+				1FF2EB5F1A3976EA005029E2 /* SVProgressHUD-Prefix.pch */,
+				1FF2EB601A3976EA005029E2 /* SVProgressHUD.bundle */,
+				1FF2EB611A3976EA005029E2 /* SVProgressHUD.h */,
+				1FF2EB621A3976EA005029E2 /* SVProgressHUD.m */,
+			);
+			path = SVProgressHUD;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -532,6 +555,7 @@
 				1F77B5191A1DDD9400D15BA2 /* NotoSansKR-Medium.otf in Resources */,
 				1F77B51A1A1DDD9400D15BA2 /* NotoSansKR-Regular.otf in Resources */,
 				1F77B5721A1E118000D15BA2 /* SIAlertView.bundle in Resources */,
+				1FF2EB641A3976EA005029E2 /* SVProgressHUD.bundle in Resources */,
 				1FBEB5261A0720B300717E9A /* LaunchScreen.xib in Resources */,
 				1F77B50D1A1DD8FB00D15BA2 /* testBG.jpg in Resources */,
 				1F77B5151A1DDD9400D15BA2 /* NotoSansKR-Black.otf in Resources */,
@@ -575,6 +599,7 @@
 				1F4025571A3570FB002A7F85 /* ODRefreshControl.m in Sources */,
 				1F77B5681A1DFDC800D15BA2 /* UIImageView+HighlightedWebCache.m in Sources */,
 				1F60BEB71A35F5C60084F0AA /* UIImage+TOWebViewControllerIcons.m in Sources */,
+				1FF2EB631A3976EA005029E2 /* SVIndefiniteAnimatedView.m in Sources */,
 				1FF5E9AC1A2BC13600F356E2 /* L3TextField.m in Sources */,
 				1F77B5561A1DFDC800D15BA2 /* AFSecurityPolicy.m in Sources */,
 				1F77B5601A1DFDC800D15BA2 /* SDWebImageDownloader.m in Sources */,
@@ -586,6 +611,7 @@
 				1F77B5581A1DFDC800D15BA2 /* AFURLRequestSerialization.m in Sources */,
 				1F77B5631A1DFDC800D15BA2 /* SDWebImagePrefetcher.m in Sources */,
 				1F60BEB41A35F5C60084F0AA /* TOActivityChrome.m in Sources */,
+				1FF2EB651A3976EA005029E2 /* SVProgressHUD.m in Sources */,
 				1F77B5731A1E118000D15BA2 /* SIAlertView.m in Sources */,
 				1F77B55A1A1DFDC800D15BA2 /* AFURLSessionManager.m in Sources */,
 				1F77B56D1A1E00BC00D15BA2 /* L3InputViewController.m in Sources */,

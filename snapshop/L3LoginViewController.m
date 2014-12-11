@@ -13,6 +13,7 @@
 #import "L3TextField.h"
 #import "L3JoinViewController.h"
 #import "AppDelegate.h"
+#import "SVProgressHUD/SVProgressHUD.h"
 
 #define SUCCESS_STATUS @"10"
 
@@ -75,6 +76,10 @@
                       ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
                       
                       delegate.window.rootViewController = mainViewController;
+                  }
+                  
+                  else {
+                      [SVProgressHUD showErrorWithStatus:@"로그인 실패!\n이메일&비밀번호를 확인해보세요."];
                   }
                   
               }

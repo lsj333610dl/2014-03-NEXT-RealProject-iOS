@@ -164,9 +164,6 @@
     L3InputViewController *inputViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"inputViewController"];
     
     inputViewController.image = image;
-//    [inputViewController setImage:image];
-    //    [contentsViewController.blurredImageView setImageToBlur:image blurRadius:20.0f completionBlock:^{
-    //    }];
     [self presentViewController:inputViewController animated:YES completion:nil];
     
 }
