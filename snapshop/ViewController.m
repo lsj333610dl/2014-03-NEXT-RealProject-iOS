@@ -320,10 +320,11 @@
     
     NSLog(@"%@",@{@"pid":_resultArray[clickedButtonPath.row][@"pid"],@"uid":[NSNumber numberWithInteger:delegate.uid]});
     
+    NSString *urlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/like?pid=%@&uid=%@",_resultArray[clickedButtonPath.row][@"pid"],[NSNumber numberWithInteger:delegate.uid]];
     
     //snap 추가
     if (sender.tag == 0) {
-        [_manager POST:@"http://125.209.199.221:8080/app/posts/like"
+        [_manager POST:urlString
             parameters:@{@"pid":_resultArray[clickedButtonPath.row][@"pid"],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
              
                 NSLog(@"스냅 성공 : %@",ro);
@@ -338,7 +339,7 @@
     
     //snap 취소
     else if(sender.tag == 1){
-        [_manager DELETE:@"http://125.209.199.221:8080/app/posts/like"
+        [_manager DELETE:urlString
             parameters:@{@"pid":[NSNumber numberWithInteger:clickedButtonPath.row],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
                 
                 NSLog(@"스냅 취소성공 : %@",ro);

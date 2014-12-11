@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *titleString;
 @property (strong, nonatomic) NSString *urlString;
 @property (strong, nonatomic) NSString *priceString;
+@property (strong, nonatomic) NSNumber *priceNumber;
 
 
 @end

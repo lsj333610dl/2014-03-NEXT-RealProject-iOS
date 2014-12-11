@@ -121,23 +121,26 @@ const NSInteger DISPLAY = 20;
     inputVC.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_resultArray[indexPath.row][@"image"]]]];
 //    inputVC.priceString = [_resultArray[indexPath.row][@"price"] stringValue];
     
-    if ([_resultArray[indexPath.row][@"hprice"] integerValue] == 0) {
-        
-        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
-        NSString *lpriceString = [formatter stringFromNumber:lprice];
-        inputVC.priceString = [NSString stringWithFormat:@"%@원",lpriceString];
-    }
-    else {
-        
-        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
-        NSString *lpriceString = [formatter stringFromNumber:lprice];
-        
-        NSNumber *hprice = [formatter numberFromString:[_resultArray[indexPath.row][@"hprice"] stringValue]];
-        NSString *hpriceString = [formatter stringFromNumber:hprice];
-        
-        inputVC.priceString = [NSString stringWithFormat:@"%@원 ~ %@원",lpriceString,hpriceString];
-    }
+    inputVC.priceString = [_resultArray[indexPath.row][@"lprice"] stringValue];
     
+    
+//    if ([_resultArray[indexPath.row][@"hprice"] integerValue] == 0) {
+//        
+//        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
+//        NSString *lpriceString = [formatter stringFromNumber:lprice];
+//        inputVC.priceString = [NSString stringWithFormat:@"%@원",lpriceString];
+//    }
+//    else {
+//        
+//        NSNumber *lprice = [formatter numberFromString:[_resultArray[indexPath.row][@"lprice"] stringValue]];
+//        NSString *lpriceString = [formatter stringFromNumber:lprice];
+//        
+//        NSNumber *hprice = [formatter numberFromString:[_resultArray[indexPath.row][@"hprice"] stringValue]];
+//        NSString *hpriceString = [formatter stringFromNumber:hprice];
+//        
+//        inputVC.priceString = [NSString stringWithFormat:@"%@원 ~ %@원",lpriceString,hpriceString];
+//    }
+//    
     [self presentViewController:inputVC animated:YES completion:^{
     }];
     
