@@ -17,8 +17,8 @@
 
 @interface L3InputViewController ()
 
-@property (weak, nonatomic) IBOutlet UIView *inputView;
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *inputViewBottomContraint;
+@property (retain, nonatomic) IBOutlet UIView *inputView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraint;
 @property (nonatomic) CGRect keyboardBounds;
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
@@ -72,8 +72,8 @@
     
     [[notification.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardBounds];
     
-    NSNumber *duration = [notification.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSNumber *curve = [notification.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    NSNumber *duration = (notification.userInfo)[UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = (notification.userInfo)[UIKeyboardAnimationCurveUserInfoKey];
     
     keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
     
@@ -84,13 +84,13 @@
     
     if( ([notification name] == UIKeyboardWillShowNotification)  )
     {
-        self.inputViewBottomContraint.constant = keyboardBounds.size.height;
+        self.layoutConstraint.constant = keyboardBounds.size.height;
         [self.view layoutIfNeeded];
     }
     
     else if( ([notification name] == UIKeyboardWillHideNotification) )
     {
-        self.inputViewBottomContraint.constant -= keyboardBounds.size.height;
+        self.layoutConstraint.constant -= keyboardBounds.size.height;
         [self.view layoutIfNeeded];
     }
     
@@ -168,7 +168,7 @@
                                  @"shopUrl":_urlTextfield.text,
                                  @"contents":_contentsTextfield.text,
                                  @"price":_priceTextfield.text,
-                                 @"id":[NSNumber numberWithInteger:_delegate.uid]};
+                                 @"id": @(_delegate.uid)};
     NSLog(@"파라미터 : %@",parameters);
     
     [manager POST:imagePostUrl

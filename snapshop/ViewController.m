@@ -351,6 +351,72 @@
     
 }
 
+#pragma mark - IBAction
+- (IBAction)showFeed:(id)sender {
+    [self reloadTable];
+}
+
+
+- (IBAction)showSnaps:(id)sender {
+    [_tableView setContentOffset:CGPointZero animated:NO];
+    
+    _start = 1;
+    
+    NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/likes",delegate.uid];
+    
+    [_manager GET:mySnapsUrlString
+       parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
+          success:^(AFHTTPRequestOperation *operation, id responseObject){
+              _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+              
+              [_resultArray removeAllObjects];
+              
+              for (id object in responseObject[@"response"][@"data"]) {
+                  [_resultArray addObject:object];
+              }
+              
+              NSLog(@"%@",_resultArray);
+              [_tableView reloadData];
+              [refreshControl endRefreshing];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error){
+              NSLog(@"에러 : %@",error);
+          }];
+
+}
+
+
+- (IBAction)showPosts:(id)sender {
+    
+    [_tableView setContentOffset:CGPointZero animated:NO];
+    
+    _start = 1;
+    
+    NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/posts",delegate.uid];
+    
+    [_manager GET:mySnapsUrlString
+       parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
+          success:^(AFHTTPRequestOperation *operation, id responseObject){
+              _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+              
+              [_resultArray removeAllObjects];
+              
+              for (id object in responseObject[@"response"][@"data"]) {
+                  [_resultArray addObject:object];
+              }
+              
+              NSLog(@"%@",_resultArray);
+              [_tableView reloadData];
+              [refreshControl endRefreshing];
+          }
+          failure:^(AFHTTPRequestOperation *operation, NSError *error){
+              NSLog(@"에러 : %@",error);
+          }];
+    
+}
+
+
+
 #pragma mark - etc
 
 - (void)didReceiveMemoryWarning {
