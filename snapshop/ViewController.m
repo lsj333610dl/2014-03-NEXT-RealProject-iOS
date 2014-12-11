@@ -16,13 +16,22 @@
 #import "AppDelegate.h"
 #import "ODRefreshControl.h"
 #import "TOWebViewController/TOWebViewController.h"
+#import "SVProgressHUD.h"
+
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define COLOR_MAIN UIColorFromRGB(0x4EC598)
 
+typedef enum : NSUInteger {
+    ContentsModeFeed=1,
+    ContentsModeSnaps=2,
+    ContentsModePosts=3,
+} ContentsMode;
+
 @interface ViewController () <UIImagePickerControllerDelegate,UITableViewDataSource,UITableViewDelegate>{
     AppDelegate *delegate;
     ODRefreshControl *refreshControl;
+    ContentsMode contentsMode;
 }
 
 @property (strong, nonatomic) UIStoryboard *storyBoard;
@@ -32,6 +41,8 @@
 @property (nonatomic) SIAlertView *alertView;
 @property (strong, nonatomic) UIImagePickerController *imgPicker;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortSeg;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeight;
+@property (weak, nonatomic) IBOutlet UIView *topView;
 
 @property (nonatomic) NSUInteger start;
 @property (nonatomic) BOOL isLoading;
@@ -55,7 +66,7 @@
     
     _manager = [AFHTTPRequestOperationManager manager];
     _resultArray = [NSMutableArray new];
-    
+    contentsMode = ContentsModeFeed;
     _start = 1;
     
     [self reloadTable];
@@ -107,7 +118,6 @@
     [refreshControl addTarget:self action:@selector(reloadTable) forControlEvents:UIControlEventValueChanged];
     [refreshControl setTintColor:COLOR_MAIN];
     
-    
 //    [_manager DELETE:@"http://125.209.199.221:8080/app/posts/delete/31" parameters:@{@"uid":@6} success:nil failure:nil];
     
 }
@@ -118,26 +128,42 @@
     
     _start = 1;
     
-    [_manager GET:@"http://125.209.199.221:8080/app/posts/"
-       parameters:@{@"sort":[NSNumber numberWithInteger:_sortSeg.selectedSegmentIndex],
-                    @"start":[NSNumber numberWithUnsignedInteger:_start],
-                    @"id":[NSNumber numberWithInteger:delegate.uid]}
-          success:^(AFHTTPRequestOperation *operation, id responseObject){
-              _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
-              
-              [_resultArray removeAllObjects];
-              
-              for (id object in responseObject[@"response"][@"data"]) {
-                  [_resultArray addObject:object];
-              }
-              
-              NSLog(@"%@",_resultArray);
-              [_tableView reloadData];
-              [refreshControl endRefreshing];
-          }
-          failure:^(AFHTTPRequestOperation *operation, NSError *error){
-              NSLog(@"에러 : %@",error);
-          }];
+    switch (contentsMode) {
+        case ContentsModeFeed:{
+            [_manager GET:@"http://125.209.199.221:8080/app/posts/"
+               parameters:@{@"sort":[NSNumber numberWithInteger:_sortSeg.selectedSegmentIndex],
+                            @"start":[NSNumber numberWithUnsignedInteger:_start],
+                            @"id":[NSNumber numberWithInteger:delegate.uid]}
+                  success:^(AFHTTPRequestOperation *operation, id responseObject){
+                      _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+                      
+                      [_resultArray removeAllObjects];
+                      
+                      for (id object in responseObject[@"response"][@"data"]) {
+                          [_resultArray addObject:object];
+                      }
+                      
+                      NSLog(@"%@",_resultArray);
+                      [_tableView reloadData];
+                      [refreshControl endRefreshing];
+                  }
+                  failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                      NSLog(@"에러 : %@",error);
+                  }];
+        }
+            break;
+            
+        case ContentsModePosts:
+            [self showPosts:nil];
+            break;
+            
+        case ContentsModeSnaps:
+            [self showSnaps:nil];
+            break;
+            
+        default:
+            break;
+    }
     
 }
 
@@ -254,6 +280,7 @@
         
         dispatch_async(mainQueue, ^{
             [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:YES];
+            [SVProgressHUD show];
         });
         _isLoading = YES;
         
@@ -261,31 +288,84 @@
         if (_isLoading) {
             
             _start+=1;
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
-                
-                [_manager GET:@"http://125.209.199.221:8080/app/posts/"
-                   parameters:@{@"sort":[NSNumber numberWithInteger:_sortSeg.selectedSegmentIndex],
-                                @"start":[NSNumber numberWithUnsignedInteger:_start],
-                                @"id":[NSNumber numberWithInteger:delegate.uid]}
-                 
-                      success:^(AFHTTPRequestOperation *operation, id responseObject){
-                          NSLog(@"성공 %@",responseObject);
-                          for (id object in responseObject[@"response"][@"data"]) {
-                              [_resultArray addObject:object];
-                              [_tableView reloadData];
-                          }
-                          
-                      }
-                      failure:^(AFHTTPRequestOperation *operation, NSError *error){
-                          NSLog(@"에러 : %@",error);
-                      }];
+                switch (contentsMode) {
+                    case ContentsModeFeed:{
+                        [_manager GET:@"http://125.209.199.221:8080/app/posts/"
+                           parameters:@{@"sort":[NSNumber numberWithInteger:_sortSeg.selectedSegmentIndex],
+                                        @"start":[NSNumber numberWithUnsignedInteger:_start],
+                                        @"id":[NSNumber numberWithInteger:delegate.uid]}
+                         
+                              success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                  NSLog(@"성공 %@",responseObject);
+                                  for (id object in responseObject[@"response"][@"data"]) {
+                                      [_resultArray addObject:object];
+                                      [_tableView reloadData];
+                                  }
+                                  
+                              }
+                              failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                  NSLog(@"에러 : %@",error);
+                              }];
 
+                    }
+                        break;
+                    case ContentsModeSnaps:{
+                        NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/likes",delegate.uid];
+                        
+                        [_manager GET:mySnapsUrlString
+                           parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
+                              success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                  _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+                                  
+                                  for (id object in responseObject[@"response"][@"data"]) {
+                                      [_resultArray addObject:object];
+                                      [_tableView reloadData];
+                                  }
+                                  
+                                  [refreshControl endRefreshing];
+                              }
+                              failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                  NSLog(@"에러 : %@",error);
+                              }];
+                    }
+                        break;
+                    case ContentsModePosts:{
+                        
+                        NSString *myPostsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/posts",delegate.uid];
+                        
+                        [_manager GET:myPostsUrlString
+                           parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
+                              success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                  _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+                                  
+                                  for (id object in responseObject[@"response"][@"data"]) {
+                                      [_resultArray addObject:object];
+                                      [_tableView reloadData];
+                                  }
+                                  
+                                  [refreshControl endRefreshing];
+                              }
+                              failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                  NSLog(@"에러 : %@",error);
+                              }];
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
+                
+                
+                
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSLog(@"끝났다.");
                     _isLoading = NO;
                     
                     [[UIApplication sharedApplication]setNetworkActivityIndicatorVisible:NO];
+                    [SVProgressHUD dismiss];
                 });
             });
             
@@ -353,11 +433,23 @@
 
 #pragma mark - IBAction
 - (IBAction)showFeed:(id)sender {
+    
+    _topViewHeight.constant = 64;
+    [self.view layoutIfNeeded];
+    
+    _sortSeg.hidden = NO;
+    contentsMode = ContentsModeFeed;
     [self reloadTable];
 }
 
 
 - (IBAction)showSnaps:(id)sender {
+    
+    _topViewHeight.constant = 20;
+    [self.view layoutIfNeeded];
+    
+    contentsMode = ContentsModeSnaps;
+    _sortSeg.hidden = YES;
     [_tableView setContentOffset:CGPointZero animated:NO];
     
     _start = 1;
@@ -388,13 +480,18 @@
 
 - (IBAction)showPosts:(id)sender {
     
-    [_tableView setContentOffset:CGPointZero animated:NO];
     
+    _topViewHeight.constant = 20;
+    [self.view layoutIfNeeded];
+    
+    contentsMode = ContentsModePosts;
+    _sortSeg.hidden = YES;
+    [_tableView setContentOffset:CGPointZero animated:NO];
     _start = 1;
     
-    NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/posts",delegate.uid];
+    NSString *myPostsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/posts",delegate.uid];
     
-    [_manager GET:mySnapsUrlString
+    [_manager GET:myPostsUrlString
        parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
           success:^(AFHTTPRequestOperation *operation, id responseObject){
               _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];

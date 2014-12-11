@@ -615,6 +615,8 @@
                     <connections>
                         <outlet property="sortSeg" destination="1iK-Wv-gsE" id="j4x-hC-VDG"/>
                         <outlet property="tableView" destination="Kx3-6w-N6X" id="TjH-U3-nkZ"/>
+                        <outlet property="topView" destination="4sK-7B-faS" id="Ft8-7Y-gWn"/>
+                        <outlet property="topViewHeight" destination="Hke-BF-QJd" id="0ru-Y7-rYJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dnp-dC-ucl" userLabel="First Responder" sceneMemberID="firstResponder"/>
