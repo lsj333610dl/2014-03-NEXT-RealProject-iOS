@@ -17,7 +17,7 @@
 #import "ODRefreshControl.h"
 #import "TOWebViewController/TOWebViewController.h"
 #import "SVProgressHUD.h"
-
+#import "L3DetailViewController.h"
 
 #define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #define COLOR_MAIN UIColorFromRGB(0x4EC598)
@@ -43,6 +43,7 @@ typedef enum : NSUInteger {
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortSeg;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *topViewHeight;
 @property (weak, nonatomic) IBOutlet UIView *topView;
+@property (nonatomic) L3DetailViewController *detailVC;
 
 @property (nonatomic) NSUInteger start;
 @property (nonatomic) BOOL isLoading;
@@ -119,6 +120,9 @@ typedef enum : NSUInteger {
     [refreshControl setTintColor:COLOR_MAIN];
     
 //    [_manager DELETE:@"http://125.209.199.221:8080/app/posts/delete/31" parameters:@{@"uid":@6} success:nil failure:nil];
+    
+    
+    _detailVC = [_storyBoard instantiateViewControllerWithIdentifier:@"detailViewController"];
     
 }
 
@@ -250,6 +254,16 @@ typedef enum : NSUInteger {
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
  
+    [SVProgressHUD showWithStatus:@"Loading..."];
+    
+    _detailVC.data = _resultArray[indexPath.row];
+    [_detailVC reloadData];
+    [self presentViewController:_detailVC animated:YES completion:^{
+        [SVProgressHUD dismiss];
+    }];
+    
+    return;
+    
     if ([_resultArray[indexPath.row][@"shopUrl"] isEqualToString:@""]) {
         return;
     }

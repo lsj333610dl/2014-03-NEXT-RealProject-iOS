@@ -117,6 +117,20 @@
 //    [self savePostWithImageUrlString:@"http://cfile217.uf.daum.net/image/1505C9384DC8E7BF1FF9F2"];
     
     
+    
+    if([_titleTextfield.text isEqualToString:@""]){
+        [SVProgressHUD showErrorWithStatus:@"제목을 입력해주세용!"];
+        [_titleTextfield becomeFirstResponder];
+        return;
+    }
+    
+    else if ([_priceTextfield.text isEqualToString:@""]) {
+        [SVProgressHUD showErrorWithStatus:@"가격을 입력해주세용!"];
+        [_priceTextfield becomeFirstResponder];
+        return;
+    }
+    
+    
     ///2. image파일로
     NSDateFormatter *formatter = [NSDateFormatter new];
     [formatter setDateFormat:@"yy-MM-dd-hh:mm:ss"];
@@ -124,6 +138,7 @@
     
     NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 0.5);
     [self savePostWithImageData:imageData imageName:[NSString stringWithFormat:@"%zd_%@_%@.jpeg",_delegate.uid,_titleTextfield.text,dateString]];
+    
     
     
 }

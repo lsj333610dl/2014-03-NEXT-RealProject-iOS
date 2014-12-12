@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1F17BF381A1EE57A00F403E1 /* L3MainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F17BF371A1EE57A00F403E1 /* L3MainTableViewCell.m */; };
 		1F4025571A3570FB002A7F85 /* ODRefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F4025561A3570FB002A7F85 /* ODRefreshControl.m */; };
+		1F464EBC1A3A933A0034AAB6 /* L3DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F464EBB1A3A933A0034AAB6 /* L3DetailViewController.m */; };
 		1F60BEB31A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1F60BEA21A35F5C60084F0AA /* TOWebViewControllerLocalizable.strings */; };
 		1F60BEB41A35F5C60084F0AA /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F60BEAA1A35F5C60084F0AA /* TOActivityChrome.m */; };
 		1F60BEB51A35F5C60084F0AA /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = 1F60BEAC1A35F5C60084F0AA /* TOActivitySafari.m */; };
@@ -82,6 +83,8 @@
 		1F17BF371A1EE57A00F403E1 /* L3MainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3MainTableViewCell.m; sourceTree = "<group>"; };
 		1F4025551A3570FB002A7F85 /* ODRefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ODRefreshControl.h; sourceTree = "<group>"; };
 		1F4025561A3570FB002A7F85 /* ODRefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ODRefreshControl.m; sourceTree = "<group>"; };
+		1F464EBA1A3A933A0034AAB6 /* L3DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = L3DetailViewController.h; sourceTree = "<group>"; };
+		1F464EBB1A3A933A0034AAB6 /* L3DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = L3DetailViewController.m; sourceTree = "<group>"; };
 		1F60BEA31A35F5C60084F0AA /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
 		1F60BEA41A35F5C60084F0AA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
 		1F60BEA51A35F5C60084F0AA /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/TOWebViewControllerLocalizable.strings; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				1FBEB51D1A0720B300717E9A /* ViewController.m */,
 				1F17BF361A1EE57A00F403E1 /* L3MainTableViewCell.h */,
 				1F17BF371A1EE57A00F403E1 /* L3MainTableViewCell.m */,
+				1F464EBA1A3A933A0034AAB6 /* L3DetailViewController.h */,
+				1F464EBB1A3A933A0034AAB6 /* L3DetailViewController.m */,
 			);
 			name = MainList;
 			sourceTree = "<group>";
@@ -611,6 +616,7 @@
 				1F77B5581A1DFDC800D15BA2 /* AFURLRequestSerialization.m in Sources */,
 				1F77B5631A1DFDC800D15BA2 /* SDWebImagePrefetcher.m in Sources */,
 				1F60BEB41A35F5C60084F0AA /* TOActivityChrome.m in Sources */,
+				1F464EBC1A3A933A0034AAB6 /* L3DetailViewController.m in Sources */,
 				1FF2EB651A3976EA005029E2 /* SVProgressHUD.m in Sources */,
 				1F77B5731A1E118000D15BA2 /* SIAlertView.m in Sources */,
 				1F77B55A1A1DFDC800D15BA2 /* AFURLSessionManager.m in Sources */,
