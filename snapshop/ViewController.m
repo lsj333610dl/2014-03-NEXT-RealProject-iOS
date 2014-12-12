@@ -194,8 +194,9 @@ typedef enum : NSUInteger {
     L3InputViewController *inputViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"inputViewController"];
     
     inputViewController.image = image;
-    [self presentViewController:inputViewController animated:YES completion:nil];
-    
+    [self presentViewController:inputViewController animated:YES completion:^{
+//        NSLog(@"ed:%@, ing:%@",[self presentedViewController],[self presentingViewController]);
+    }];
 }
 
 
@@ -263,26 +264,6 @@ typedef enum : NSUInteger {
     }];
     
     return;
-    
-    if ([_resultArray[indexPath.row][@"shopUrl"] isEqualToString:@""]) {
-        return;
-    }
-    
-    NSString *readUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/read",[_resultArray[indexPath.row][@"pid"] integerValue]];
-    
-    [_manager POST:readUrlString
-        parameters:@{@"pid":_resultArray[indexPath.row][@"pid"]}
-           success:^(AFHTTPRequestOperation *op, id ro){
-               NSLog(@"%@",ro);
-    }
-           failure:^(AFHTTPRequestOperation *op, NSError *error){
-               NSLog(@"%@",error);
-           }];
-    
-    NSURL *url = [NSURL URLWithString:_resultArray[indexPath.row][@"shopUrl"]];
-    TOWebViewController *webViewController = [[TOWebViewController alloc] initWithURL:url];
-    
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:webViewController] animated:YES completion:nil];
     
 }
 
@@ -399,7 +380,6 @@ typedef enum : NSUInteger {
     
     AppDelegate *appDelegate = [[UIApplication sharedApplication]delegate];
     [appDelegate.window setRootViewController:[_storyBoard instantiateViewControllerWithIdentifier:@"loginViewController"]];
-    
     
 }
 

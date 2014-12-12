@@ -136,7 +136,7 @@
     [formatter setDateFormat:@"yy-MM-dd-hh:mm:ss"];
     NSString *dateString = [formatter stringFromDate:[NSDate date]];
     
-    NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 0.5);
+    NSData *imageData = UIImageJPEGRepresentation(_imageView.image, 1);
     [self savePostWithImageData:imageData imageName:[NSString stringWithFormat:@"%zd_%@_%@.jpeg",_delegate.uid,_titleTextfield.text,dateString]];
     
     
