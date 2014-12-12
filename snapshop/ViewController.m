@@ -73,6 +73,7 @@ typedef enum : NSUInteger {
     [self reloadTable];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SavePost" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"ReloadData" object:nil];
 
 
     imgPicker = [UIImagePickerController new];

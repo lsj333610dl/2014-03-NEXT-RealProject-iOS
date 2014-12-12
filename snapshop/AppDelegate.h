@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) NSInteger uid;
+@property (nonatomic) NSString *emailString;
 
 @end
 

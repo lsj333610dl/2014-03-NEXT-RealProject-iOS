@@ -62,6 +62,15 @@
     else {
         [_snapButton setTitle:@"Snap" forState:UIControlStateNormal];
     }
+    
+    if ([_delegate.emailString isEqualToString:_data[@"writer"]]) {
+        _deleteButton.hidden = NO;
+        _editButton.hidden = NO;
+    }
+    else {
+        _deleteButton.hidden = YES;
+        _editButton.hidden = YES;
+    }
 
 }
 
@@ -136,6 +145,22 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (IBAction)delete:(id)sender {
+    
+    //    [_manager DELETE:@"http://125.209.199.221:8080/app/posts/delete/31" parameters:@{@"uid":@6} success:nil failure:nil];
+    NSString *deleteUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/delete/%zd",[_data[@"pid"] integerValue]];
+    
+    [_manager DELETE:deleteUrlString
+          parameters:@{@"uid":@(_delegate.uid)}
+             success:^(AFHTTPRequestOperation *op, id ro){
+                 NSLog(@"지움 : %@",ro);
+                 [[NSNotificationCenter defaultCenter]postNotificationName:@"ReloadData" object:nil];
+                 [self back:nil];
+             }
+             failure:^(AFHTTPRequestOperation *op, NSError *error){
+                 NSLog(@"실패");
+             }];
+    
+    
 }
 - (IBAction)edit:(id)sender {
 }

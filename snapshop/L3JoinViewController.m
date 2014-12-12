@@ -11,7 +11,8 @@
 #import "SIAlertView/SIAlertView.h"
 #import "L3TextField.h"
 #import "ViewController.h"
-
+#import "SVProgressHUD.h"
+#import "AppDelegate.h"
 
 #define SUCCESS_STATUS @"10"
 
@@ -73,13 +74,42 @@
                   
                   if ([[[responseObject objectForKey:@"status"] stringValue] isEqualToString:SUCCESS_STATUS]) {
                       
-                      ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
                       
-                      [self presentViewController:mainViewController animated:NO completion:nil];
+                      [_manager GET:@"http://125.209.199.221:8080/app/users/login"
+                         parameters:@{@"email":_emailTextField.text,@"password":_passwordTextField.text}
+                            success:^(AFHTTPRequestOperation *operation, id responseObject){
+                                NSLog(@"%@",[responseObject objectForKey:@"status"]);
+                                
+                                if ([[responseObject objectForKey:@"status"] isEqual:SUCCESS_STATUS]) {
+                                    
+                                    AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
+                                    [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];
+                                    [delegate setEmailString:_emailTextField.text];
+                                    
+                                    
+                                    ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
+                                    
+                                    delegate.window.rootViewController = mainViewController;
+                                }
+                                
+                                else {
+                                    [SVProgressHUD showErrorWithStatus:@"로그인 실패!\n이메일&비밀번호를 확인해보세요."];
+                                }
+                                
+                            }
+                            failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                                [SVProgressHUD showErrorWithStatus:@"네트워크 에러!"];
+                                NSLog(@"%@",[error localizedDescription]);
+                            }];
+                      
+                      
+                      
+                      
                   }
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                  [SVProgressHUD showErrorWithStatus:@"네트워크 에러!"];
                   NSLog(@"에러 : %@",[error localizedDescription]);
               }];
     }

@@ -70,7 +70,7 @@
                       
                       AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
                       [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];
-                      NSLog(@"%zd",delegate.uid);
+                      [delegate setEmailString:_emailTextField.text];
                       
                       
                       ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
@@ -84,6 +84,7 @@
                   
               }
               failure:^(AFHTTPRequestOperation *operation, NSError *error){
+                  [SVProgressHUD showErrorWithStatus:@"네트워크 에러!"];
                   NSLog(@"%@",[error localizedDescription]);
               }];
     }
