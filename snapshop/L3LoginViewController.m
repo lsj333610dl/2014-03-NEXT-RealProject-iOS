@@ -15,7 +15,7 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD/SVProgressHUD.h"
 
-#define SUCCESS_STATUS @"10"
+#define SUCCESS_STATUS 10
 
 @interface L3LoginViewController ()
 
@@ -64,9 +64,10 @@
         [_manager GET:@"http://125.209.199.221:8080/app/users/login"
            parameters:@{@"email":_emailTextField.text,@"password":_passwordTextField.text}
               success:^(AFHTTPRequestOperation *operation, id responseObject){
-                  NSLog(@"%@",[responseObject objectForKey:@"status"]);
                   
-                  if ([[responseObject objectForKey:@"status"] isEqual:SUCCESS_STATUS]) {
+                  NSLog(@"로그인 코드 : %@",[responseObject objectForKey:@"status"]);
+                  
+                  if ([[responseObject objectForKey:@"status"] isEqualToNumber:@SUCCESS_STATUS]) {
                       
                       AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
                       [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];

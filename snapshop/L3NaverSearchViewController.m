@@ -202,15 +202,15 @@ const NSInteger DISPLAY = 20;
               [self.view endEditing:YES];
               
               
-              if ([responseObject[@"response"][@"data"] isEqual:[NSNull null]]) {
+              if ([responseObject[@"data"] isEqual:[NSNull null]]) {
                   SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"검색 결과가 없습니다." andMessage:@"다른 검색어로 검색해 보세요."];
                   [alert addButtonWithTitle:@"오키" type:SIAlertViewButtonTypeCancel handler:nil];
                   [alert show];
                   return;
               }
               
-              _total = [responseObject[@"response"][@"data"][@"total"] integerValue];
-              self.resultArray = [responseObject[@"response"][@"data"][@"list"] mutableCopy];
+              _total = [responseObject[@"data"][@"total"] integerValue];
+              self.resultArray = [responseObject[@"data"][@"list"] mutableCopy];
               
               [_tableView reloadData];
               
@@ -272,7 +272,7 @@ const NSInteger DISPLAY = 20;
                   success:^(AFHTTPRequestOperation *operation, id responseObject){
                       [self.view endEditing:YES];
                       
-                      for (id object in responseObject[@"response"][@"data"][@"list"]) {
+                      for (id object in responseObject[@"data"][@"list"]) {
                           [self.resultArray addObject:object];
                           
                           [_tableView reloadData];

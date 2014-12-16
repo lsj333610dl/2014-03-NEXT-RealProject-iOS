@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C78c" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
@@ -231,7 +231,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ORq-4n-J6r">
-                                                    <rect key="frame" x="88" y="42.5" width="237" height="30"/>
+                                                    <rect key="frame" x="88" y="43" width="237" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="FpX-mD-Jpg"/>
                                                         <constraint firstAttribute="width" secondItem="ORq-4n-J6r" secondAttribute="height" multiplier="79:10" id="Ouz-ka-AK2"/>
@@ -241,7 +241,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="쇼핑몰" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ore-C9-POP">
-                                                    <rect key="frame" x="355" y="42.5" width="237" height="30"/>
+                                                    <rect key="frame" x="355" y="43" width="237" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="EV8-87-zdD"/>
                                                         <constraint firstAttribute="width" secondItem="ore-C9-POP" secondAttribute="height" multiplier="79:10" id="kYV-Ts-Yn3"/>
@@ -251,7 +251,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FWD-nO-NAi">
-                                                    <rect key="frame" x="0.0" y="80" width="600" height="4.5"/>
+                                                    <rect key="frame" x="0.0" y="80" width="600" height="5"/>
                                                     <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
                                             </subviews>

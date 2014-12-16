@@ -140,11 +140,11 @@ typedef enum : NSUInteger {
                             @"start":[NSNumber numberWithUnsignedInteger:_start],
                             @"id":[NSNumber numberWithInteger:delegate.uid]}
                   success:^(AFHTTPRequestOperation *operation, id responseObject){
-                      _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+                      _total = [responseObject[@"total"] unsignedIntegerValue];
                       
                       [_resultArray removeAllObjects];
                       
-                      for (id object in responseObject[@"response"][@"data"]) {
+                      for (id object in responseObject[@"data"]) {
                           [_resultArray addObject:object];
                       }
                       
@@ -295,7 +295,7 @@ typedef enum : NSUInteger {
                          
                               success:^(AFHTTPRequestOperation *operation, id responseObject){
                                   NSLog(@"성공 %@",responseObject);
-                                  for (id object in responseObject[@"response"][@"data"]) {
+                                  for (id object in responseObject[@"data"]) {
                                       [_resultArray addObject:object];
                                       [_tableView reloadData];
                                   }
@@ -308,14 +308,14 @@ typedef enum : NSUInteger {
                     }
                         break;
                     case ContentsModeSnaps:{
-                        NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/likes",delegate.uid];
+                        NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/likes",delegate.uid];
                         
                         [_manager GET:mySnapsUrlString
                            parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
                               success:^(AFHTTPRequestOperation *operation, id responseObject){
-                                  _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+                                  _total = [responseObject[@"total"] unsignedIntegerValue];
                                   
-                                  for (id object in responseObject[@"response"][@"data"]) {
+                                  for (id object in responseObject[@"data"]) {
                                       [_resultArray addObject:object];
                                       [_tableView reloadData];
                                   }
@@ -329,14 +329,14 @@ typedef enum : NSUInteger {
                         break;
                     case ContentsModePosts:{
                         
-                        NSString *myPostsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/posts",delegate.uid];
+                        NSString *myPostsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/posts",delegate.uid];
                         
                         [_manager GET:myPostsUrlString
                            parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
                               success:^(AFHTTPRequestOperation *operation, id responseObject){
-                                  _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+                                  _total = [responseObject[@"total"] unsignedIntegerValue];
                                   
-                                  for (id object in responseObject[@"response"][@"data"]) {
+                                  for (id object in responseObject[@"data"]) {
                                       [_resultArray addObject:object];
                                       [_tableView reloadData];
                                   }
@@ -449,16 +449,16 @@ typedef enum : NSUInteger {
     
     _start = 1;
     
-    NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/likes",delegate.uid];
+    NSString *mySnapsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/likes",delegate.uid];
     
     [_manager GET:mySnapsUrlString
        parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
           success:^(AFHTTPRequestOperation *operation, id responseObject){
-              _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+              _total = [responseObject[@"total"] unsignedIntegerValue];
               
               [_resultArray removeAllObjects];
               
-              for (id object in responseObject[@"response"][@"data"]) {
+              for (id object in responseObject[@"data"]) {
                   [_resultArray addObject:object];
               }
               
@@ -484,16 +484,16 @@ typedef enum : NSUInteger {
     [_tableView setContentOffset:CGPointZero animated:NO];
     _start = 1;
     
-    NSString *myPostsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/users/%zd/posts",delegate.uid];
+    NSString *myPostsUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/posts",delegate.uid];
     
     [_manager GET:myPostsUrlString
        parameters:@{@"start":[NSNumber numberWithUnsignedInteger:_start]}
           success:^(AFHTTPRequestOperation *operation, id responseObject){
-              _total = [responseObject[@"response"][@"total"] unsignedIntegerValue];
+              _total = [responseObject[@"total"] unsignedIntegerValue];
               
               [_resultArray removeAllObjects];
               
-              for (id object in responseObject[@"response"][@"data"]) {
+              for (id object in responseObject[@"data"]) {
                   [_resultArray addObject:object];
               }
               

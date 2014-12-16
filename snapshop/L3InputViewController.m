@@ -177,6 +177,8 @@
 -(void)savePostWithImageData:(NSData*)imageData imageName:(NSString*)imageName{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    
     NSString *imagePostUrl = @"http://125.209.199.221:8080/app/posts/new";
     
     NSDictionary *parameters = @{@"title":_titleTextfield.text,
@@ -193,6 +195,8 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     
         NSLog(@"imageName : %@",imageName);
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSLog(@"리스폰스 : %@",responseObject);
         
         if ([responseObject[@"status"] isEqualToNumber:@10]) {
             NSLog(@"저장 성공");

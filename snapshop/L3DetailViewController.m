@@ -11,6 +11,8 @@
 #import "AFNetworking.h"
 #import "TOWebViewController.h"
 #import "AppDelegate.h"
+#import "SIAlertView.h"
+#import "L3TextField.h"
 
 @interface L3DetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *topTitleLabel;
@@ -163,6 +165,78 @@
     
 }
 - (IBAction)edit:(id)sender {
+    UIView *editView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 250, 300)];
+    [editView setBackgroundColor:[UIColor colorWithWhite:0.17f alpha:1.0f]];
+    
+    UILabel *titleLabel     = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 250, 20)];
+    UILabel *contentsLabel  = [[UILabel alloc]initWithFrame:CGRectMake(10, 80, 250, 20)];
+    UILabel *priceLabel     = [[UILabel alloc]initWithFrame:CGRectMake(10, 150, 250, 20)];
+    UILabel *urlLabel     = [[UILabel alloc]initWithFrame:CGRectMake(10, 220, 250, 20)];
+    
+    titleLabel.text = @"제목";
+    contentsLabel.text = @"내용";
+    priceLabel.text = @"가격";
+    urlLabel.text = @"URL";
+    
+    titleLabel.textColor = [UIColor whiteColor];
+    contentsLabel.textColor = [UIColor whiteColor];
+    priceLabel.textColor = [UIColor whiteColor];
+    urlLabel.textColor = [UIColor whiteColor];
+    
+    [editView addSubview:titleLabel];
+    [editView addSubview:contentsLabel];
+    [editView addSubview:priceLabel];
+    [editView addSubview:urlLabel];
+    
+    
+    L3TextField *titleTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 30, 250, 40)];
+    L3TextField *contentsTF = [[L3TextField alloc]initWithFrame:CGRectMake(10, 100, 250, 40)];
+    L3TextField *priceTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 170, 250, 40)];
+    L3TextField *urlTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 240, 250, 40)];
+    
+    titleTF.textColor = [UIColor whiteColor];
+    contentsTF.textColor = [UIColor whiteColor];
+    priceTF.textColor = [UIColor whiteColor];
+    urlTF.textColor = [UIColor whiteColor];
+    
+    titleTF.text = _data[@"title"];
+    priceTF.text = _data[@"price"];
+    contentsTF.text = _data[@"contents"];
+    urlTF.text = _data[@"shopUrl"];
+    
+    
+    [editView addSubview:titleTF];
+    [editView addSubview:contentsTF];
+    [editView addSubview:priceTF];
+    [editView addSubview:urlTF];
+    
+    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"수정" andMessage:nil andContentView:editView];
+    
+    [alert addButtonWithTitle:@"취소" type:SIAlertViewButtonTypeCancel handler:nil];
+    [alert addButtonWithTitle:@"저장" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView* alertView){
+        
+        NSString *editUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/edit/%zd",[_data[@"pid"] integerValue]];
+        [_manager POST:editUrlString
+            parameters:@{@"title":titleTF.text,
+                         @"contents":contentsTF.text,
+                         @"price":priceTF.text,
+                         @"shopUrl":priceTF.text
+                         }
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+                             [formData appendPartWithFileData:UIImageJPEGRepresentation(_imageView.image, 1) name:@"image" fileName:@"editImage" mimeType:@"image/jpeg"];
+    
+                         }
+               success:^(AFHTTPRequestOperation *op, id ro){
+                   NSLog(@"성공!, %@",ro);
+                   
+               }
+               failure:^(AFHTTPRequestOperation *op, NSError *error){
+                   NSLog(@"에라! : %@",error);
+               }];
+    }];
+    
+    [alert show];
+    
 }
 
 
