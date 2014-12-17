@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface L3DetailViewController : UIViewController
+@interface L3DetailViewController : UIViewController<UITextFieldDelegate>
 
 @property (nonatomic) UIImage *mainImage;
 @property (nonatomic) NSString *titleString;

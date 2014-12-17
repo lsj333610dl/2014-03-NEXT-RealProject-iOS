@@ -14,6 +14,10 @@
 #import "SIAlertView.h"
 #import "L3TextField.h"
 
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define COLOR_MAIN UIColorFromRGB(0x4EC598)
+
 @interface L3DetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *topTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
@@ -27,6 +31,15 @@
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (nonatomic) AFHTTPRequestOperationManager *manager;
 @property (nonatomic) AppDelegate *delegate;
+
+@property (nonatomic) SIAlertView *sialertView;
+@property (nonatomic) L3TextField *titleTF;
+@property (nonatomic) L3TextField *contentsTF;
+@property (nonatomic) L3TextField *priceTF;
+@property (nonatomic) L3TextField *urlTF;
+
+@property (nonatomic) CGRect alertViewFrame;
+
 @end
 
 @implementation L3DetailViewController
@@ -37,7 +50,7 @@
     [self reloadData];
 
     _manager = [AFHTTPRequestOperationManager manager];
-
+    
 }
 
 
@@ -146,9 +159,25 @@
 - (IBAction)back:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+
 - (IBAction)delete:(id)sender {
+    __block L3DetailViewController *selfCopy = self;
+    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"삭제" andMessage:@"정말 이 글을 삭제하시렵니까?"];
+    [alert addButtonWithTitle:@"취소" type:SIAlertViewButtonTypeCancel handler:nil];
+    [alert addButtonWithTitle:@"삭제" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView *alert){
+        [selfCopy delete];
+    }];
     
-    //    [_manager DELETE:@"http://125.209.199.221:8080/app/posts/delete/31" parameters:@{@"uid":@6} success:nil failure:nil];
+    [alert show];
+
+    
+    
+}
+
+
+- (void)delete{
+    
     NSString *deleteUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/delete/%zd",[_data[@"pid"] integerValue]];
     
     [_manager DELETE:deleteUrlString
@@ -161,9 +190,9 @@
              failure:^(AFHTTPRequestOperation *op, NSError *error){
                  NSLog(@"실패");
              }];
-    
-    
 }
+
+
 - (IBAction)edit:(id)sender {
     UIView *editView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 250, 300)];
     [editView setBackgroundColor:[UIColor colorWithWhite:0.17f alpha:1.0f]];
@@ -189,54 +218,127 @@
     [editView addSubview:urlLabel];
     
     
-    L3TextField *titleTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 30, 250, 40)];
-    L3TextField *contentsTF = [[L3TextField alloc]initWithFrame:CGRectMake(10, 100, 250, 40)];
-    L3TextField *priceTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 170, 250, 40)];
-    L3TextField *urlTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 240, 250, 40)];
-    
-    titleTF.textColor = [UIColor whiteColor];
-    contentsTF.textColor = [UIColor whiteColor];
-    priceTF.textColor = [UIColor whiteColor];
-    urlTF.textColor = [UIColor whiteColor];
-    
-    titleTF.text = _data[@"title"];
-    priceTF.text = _data[@"price"];
-    contentsTF.text = _data[@"contents"];
-    urlTF.text = _data[@"shopUrl"];
+    self.titleTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 30, 250, 40)];
+    self.contentsTF = [[L3TextField alloc]initWithFrame:CGRectMake(10, 100, 250, 40)];
+    self.priceTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 170, 250, 40)];
+    self.urlTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 240, 250, 40)];
     
     
-    [editView addSubview:titleTF];
-    [editView addSubview:contentsTF];
-    [editView addSubview:priceTF];
-    [editView addSubview:urlTF];
+    [_titleTF setDelegate:self];
+    [_contentsTF setDelegate:self];
+    [_priceTF setDelegate:self];
+    [_urlTF setDelegate:self];
     
-    SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"수정" andMessage:nil andContentView:editView];
+    UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    toolbar.barTintColor = [UIColor whiteColor];
     
-    [alert addButtonWithTitle:@"취소" type:SIAlertViewButtonTypeCancel handler:nil];
-    [alert addButtonWithTitle:@"저장" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView* alertView){
-        
-        NSString *editUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/edit/%zd",[_data[@"pid"] integerValue]];
-        [_manager POST:editUrlString
-            parameters:@{@"title":titleTF.text,
-                         @"contents":contentsTF.text,
-                         @"price":priceTF.text,
-                         @"shopUrl":priceTF.text
-                         }
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-                             [formData appendPartWithFileData:UIImageJPEGRepresentation(_imageView.image, 1) name:@"image" fileName:@"editImage" mimeType:@"image/jpeg"];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"취소" style:UIBarButtonItemStylePlain target:self action:@selector(cancelEditPost)];
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"저장" style:UIBarButtonItemStylePlain target:self action:@selector(editPost)];
     
-                         }
-               success:^(AFHTTPRequestOperation *op, id ro){
-                   NSLog(@"성공!, %@",ro);
-                   
-               }
-               failure:^(AFHTTPRequestOperation *op, NSError *error){
-                   NSLog(@"에라! : %@",error);
-               }];
+    cancelButton.tintColor = COLOR_MAIN;
+    saveButton.tintColor = COLOR_MAIN;
+    
+    [toolbar setItems:@[cancelButton,flex,saveButton]];
+    
+    
+    self.titleTF.inputAccessoryView = toolbar;
+    self.contentsTF.inputAccessoryView = toolbar;
+    self.priceTF.inputAccessoryView = toolbar;
+    self.urlTF.inputAccessoryView = toolbar;
+    
+    self.titleTF.textColor = [UIColor whiteColor];
+    self.contentsTF.textColor = [UIColor whiteColor];
+    self.priceTF.textColor = [UIColor whiteColor];
+    self.urlTF.textColor = [UIColor whiteColor];
+    
+    self.titleTF.text = _data[@"title"];
+    self.priceTF.text = _data[@"price"];
+    self.contentsTF.text = _data[@"contents"];
+    self.urlTF.text = _data[@"shopUrl"];
+    
+    
+    [editView addSubview:self.titleTF];
+    [editView addSubview:self.contentsTF];
+    [editView addSubview:self.priceTF];
+    [editView addSubview:self.urlTF];
+    
+    _sialertView = [[SIAlertView alloc]initWithTitle:nil andMessage:nil andContentView:editView];
+    
+    __block L3DetailViewController *selfCopy = self;
+    
+    [_sialertView addButtonWithTitle:@"취소" type:SIAlertViewButtonTypeCancel handler:nil];
+    [_sialertView addButtonWithTitle:@"저장" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView* alertView){
+        [selfCopy editPost];
     }];
     
-    [alert show];
     
+    [_sialertView show];
+    
+    
+    _alertViewFrame = _sialertView.frame;
+}
+
+- (void)editPost{
+    
+    NSString *editUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/edit/%zd",[_data[@"pid"] integerValue]];
+    [_manager POST:editUrlString
+        parameters:@{@"title":_titleTF.text,
+                     @"contents":_contentsTF.text,
+                     @"price":_priceTF.text,
+                     @"shopUrl":_priceTF.text
+                     }
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [formData appendPartWithFileData:UIImageJPEGRepresentation(_imageView.image, 1) name:@"image" fileName:@"editImage" mimeType:@"image/jpeg"];
+    
+}
+           success:^(AFHTTPRequestOperation *op, id ro){
+               NSLog(@"성공!, %@",ro);
+               [_sialertView dismissAnimated:YES];
+               
+           }
+           failure:^(AFHTTPRequestOperation *op, NSError *error){
+               NSLog(@"에라! : %@",error);
+           }];
+    
+}
+
+- (void)cancelEditPost{
+    [_sialertView dismissAnimated:YES];
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    [UIView beginAnimations:@"alertMove" context:nil];
+    
+    if (textField==_titleTF) {
+        CGRect frame = _alertViewFrame;
+        frame.origin.y -= 50;
+        _sialertView.frame = frame;
+    }
+    
+    else if (textField==_contentsTF) {
+        
+        CGRect frame = _alertViewFrame;
+        frame.origin.y -= 100;
+        _sialertView.frame = frame;
+    }
+    
+    else if (textField==_priceTF) {
+        
+        CGRect frame = _alertViewFrame;
+        frame.origin.y -= 150;
+        _sialertView.frame = frame;
+    }
+    
+    else if (textField==_urlTF) {
+        
+        CGRect frame = _alertViewFrame;
+        frame.origin.y -= 200;
+        _sialertView.frame = frame;
+    }
+    
+    [UIView commitAnimations];
 }
 
 

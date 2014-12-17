@@ -13,6 +13,8 @@
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+#define COLOR_MAIN UIColorFromRGB(0x4EC598)
 #define SUCCESS_STATUS @"10"
 
 @interface L3InputViewController ()
@@ -62,6 +64,23 @@
     
     [_titleTextfield becomeFirstResponder];
     
+    UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width, 44)];
+    toolbar.barTintColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc]initWithTitle:@"취소" style:UIBarButtonItemStylePlain target:self action:@selector(cancel)];
+    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]initWithTitle:@"저장" style:UIBarButtonItemStylePlain target:self action:@selector(savePost)];
+    
+    cancelButton.tintColor = COLOR_MAIN;
+    saveButton.tintColor = COLOR_MAIN;
+    
+    [toolbar setItems:@[cancelButton,flex,saveButton]];
+    
+    _titleTextfield.inputAccessoryView = toolbar;
+    _urlTextfield.inputAccessoryView = toolbar;
+    _contentsTextfield.inputAccessoryView = toolbar;
+    _priceTextfield.inputAccessoryView = toolbar;
+    
 }
 
 
@@ -105,13 +124,13 @@
 
 #pragma mark - IBAction
 
-- (IBAction)cancel:(id)sender{
+- (void)cancel{
     [self.view endEditing:YES];
     [self dismissViewControllerAnimated:YES
                              completion:nil];
 }
 
-- (IBAction)save:(id)sender{
+- (void)savePost{
     
     ///1. imageUrl로
 //    [self savePostWithImageUrlString:@"http://cfile217.uf.daum.net/image/1505C9384DC8E7BF1FF9F2"];

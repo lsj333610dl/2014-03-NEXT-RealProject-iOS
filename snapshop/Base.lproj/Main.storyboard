@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6221" systemVersion="14C81f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6213"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -38,8 +38,6 @@
             <string>NotoSansKR-Light</string>
         </mutableArray>
         <mutableArray key="NotoSansKR-Medium.otf">
-            <string>NotoSansKR-Medium</string>
-            <string>NotoSansKR-Medium</string>
             <string>NotoSansKR-Medium</string>
             <string>NotoSansKR-Medium</string>
             <string>NotoSansKR-Medium</string>
@@ -648,14 +646,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testBG.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="5r3-6W-09b">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="330"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="378"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s8B-Hp-Uf3" userLabel="inputView">
-                                <rect key="frame" x="0.0" y="330" width="600" height="270"/>
+                                <rect key="frame" x="0.0" y="378" width="600" height="222"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="제목" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="AiA-0H-VP0" customClass="L3TextField">
-                                        <rect key="frame" x="16" y="47" width="568" height="40"/>
+                                        <rect key="frame" x="16" y="7" width="568" height="40"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="i4r-fS-RIG"/>
@@ -665,7 +663,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="쇼핑몰 URL" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="PIf-IX-cDB" customClass="L3TextField">
-                                        <rect key="frame" x="16" y="103" width="568" height="40"/>
+                                        <rect key="frame" x="16" y="58" width="568" height="40"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="ggB-l4-FbH"/>
@@ -675,7 +673,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="내용" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qB5-dW-O8N" customClass="L3TextField">
-                                        <rect key="frame" x="16" y="158" width="568" height="40"/>
+                                        <rect key="frame" x="16" y="113" width="568" height="40"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="bYk-ga-azn"/>
@@ -684,38 +682,8 @@
                                         <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans Korean" pointSize="20"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ef3-Og-Lcm">
-                                        <rect key="frame" x="16" y="0.0" width="41" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="41" id="6Lp-eL-dGh"/>
-                                            <constraint firstAttribute="height" constant="34" id="AAg-I6-jW4"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans Korean" pointSize="22"/>
-                                        <state key="normal" title="취소">
-                                            <color key="titleColor" red="0.30588235289999999" green="0.7725490196" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="cancel:" destination="Bhq-0g-ca1" eventType="touchUpInside" id="5eg-49-Xex"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q4o-7c-vjP">
-                                        <rect key="frame" x="543" y="0.0" width="41" height="34"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="41" id="EaD-D6-1h1"/>
-                                            <constraint firstAttribute="height" constant="34" id="S7K-KY-Qgm"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="NotoSansKR-Medium" family="Noto Sans Korean" pointSize="22"/>
-                                        <state key="normal" title="저장">
-                                            <color key="titleColor" red="0.30588235289999999" green="0.7725490196" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="save:" destination="Bhq-0g-ca1" eventType="touchUpInside" id="a9t-nV-82E"/>
-                                        </connections>
-                                    </button>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="가격" minimumFontSize="20" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="TDl-fz-5KM" customClass="L3TextField">
-                                        <rect key="frame" x="16" y="211" width="568" height="40"/>
+                                        <rect key="frame" x="16" y="166" width="568" height="40"/>
                                         <color key="tintColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="854-ZT-Ufm"/>
@@ -728,23 +696,19 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.12549019607843137" green="0.12549019607843137" blue="0.12549019607843137" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="AiA-0H-VP0" firstAttribute="top" secondItem="ef3-Og-Lcm" secondAttribute="bottom" constant="13" id="0kE-wO-2O1"/>
                                     <constraint firstItem="PIf-IX-cDB" firstAttribute="leading" secondItem="s8B-Hp-Uf3" secondAttribute="leading" constant="16" id="3Xg-Iy-zrW"/>
-                                    <constraint firstAttribute="trailing" secondItem="q4o-7c-vjP" secondAttribute="trailing" constant="16" id="3c0-AK-V1X"/>
                                     <constraint firstAttribute="trailing" secondItem="PIf-IX-cDB" secondAttribute="trailing" constant="16" id="5Na-5W-djO"/>
-                                    <constraint firstItem="AiA-0H-VP0" firstAttribute="top" secondItem="q4o-7c-vjP" secondAttribute="bottom" constant="13" id="5z0-s6-tDX"/>
                                     <constraint firstItem="AiA-0H-VP0" firstAttribute="leading" secondItem="s8B-Hp-Uf3" secondAttribute="leading" constant="16" id="D1e-wJ-MAp"/>
                                     <constraint firstItem="qB5-dW-O8N" firstAttribute="leading" secondItem="s8B-Hp-Uf3" secondAttribute="leading" constant="16" id="DcR-ct-GEq"/>
                                     <constraint firstAttribute="trailing" secondItem="AiA-0H-VP0" secondAttribute="trailing" constant="16" id="IxK-dI-s2c"/>
-                                    <constraint firstItem="ef3-Og-Lcm" firstAttribute="leading" secondItem="s8B-Hp-Uf3" secondAttribute="leading" constant="16" id="NtY-Ed-NJh"/>
-                                    <constraint firstAttribute="bottom" secondItem="qB5-dW-O8N" secondAttribute="bottom" constant="72" id="Oy9-h9-HIn"/>
+                                    <constraint firstAttribute="bottom" secondItem="qB5-dW-O8N" secondAttribute="bottom" constant="69" id="Oy9-h9-HIn"/>
                                     <constraint firstItem="TDl-fz-5KM" firstAttribute="leading" secondItem="s8B-Hp-Uf3" secondAttribute="leading" constant="16" id="Rdo-oI-ymZ"/>
-                                    <constraint firstAttribute="height" constant="270" id="Tm2-So-ErL"/>
+                                    <constraint firstAttribute="height" constant="222" id="Tm2-So-ErL"/>
                                     <constraint firstAttribute="trailing" secondItem="qB5-dW-O8N" secondAttribute="trailing" constant="16" id="UEA-VT-5VE"/>
                                     <constraint firstItem="TDl-fz-5KM" firstAttribute="top" secondItem="qB5-dW-O8N" secondAttribute="bottom" constant="13" id="kGE-6v-Cen"/>
                                     <constraint firstItem="qB5-dW-O8N" firstAttribute="top" secondItem="PIf-IX-cDB" secondAttribute="bottom" constant="15" id="nNf-rb-fPh"/>
                                     <constraint firstAttribute="trailing" secondItem="TDl-fz-5KM" secondAttribute="trailing" constant="16" id="svv-Pc-hUi"/>
-                                    <constraint firstItem="PIf-IX-cDB" firstAttribute="top" secondItem="AiA-0H-VP0" secondAttribute="bottom" constant="16" id="z19-5G-Ue9"/>
+                                    <constraint firstItem="PIf-IX-cDB" firstAttribute="top" secondItem="AiA-0H-VP0" secondAttribute="bottom" constant="11" id="z19-5G-Ue9"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -761,13 +725,11 @@
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
-                        <outlet property="cancelButton" destination="ef3-Og-Lcm" id="ghJ-Rm-ZPF"/>
                         <outlet property="contentsTextfield" destination="qB5-dW-O8N" id="5BG-iw-oiP"/>
                         <outlet property="imageView" destination="5r3-6W-09b" id="iM0-CJ-FCs"/>
                         <outlet property="inputView" destination="s8B-Hp-Uf3" id="VWb-Xf-ZTU"/>
                         <outlet property="layoutConstraint" destination="k7s-cM-diw" id="z83-yu-Kee"/>
                         <outlet property="priceTextfield" destination="TDl-fz-5KM" id="tjE-Cr-hAM"/>
-                        <outlet property="saveButton" destination="q4o-7c-vjP" id="WlJ-99-ADe"/>
                         <outlet property="titleTextfield" destination="AiA-0H-VP0" id="oHq-NK-ZOO"/>
                         <outlet property="urlTextfield" destination="PIf-IX-cDB" id="ePI-bp-ssI"/>
                     </connections>
