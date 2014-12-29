@@ -12,11 +12,20 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    
+    
+    _shadowView.layer.masksToBounds = NO;
+    _shadowView.layer.shadowColor = [UIColor colorWithWhite:0.5f alpha:1.0f].CGColor;
+    _shadowView.layer.shadowOffset = CGSizeMake(0, 1);
+    _shadowView.layer.shadowOpacity = 1.0f;
+    _shadowView.layer.shadowRadius = 1.0f;
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
+    
     // Configure the view for the selected state
 }
 

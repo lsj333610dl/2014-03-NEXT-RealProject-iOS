@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *writerLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *snapCountLabel;
+@property (weak, nonatomic) IBOutlet UIView *shadowView;
 
 - (void)snaped;
 - (void)unsnap;
