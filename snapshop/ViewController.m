@@ -145,7 +145,9 @@ typedef enum : NSUInteger {
                       [_resultArray removeAllObjects];
                       
                       for (id object in responseObject[@"data"]) {
-                          [_resultArray addObject:object];
+                          NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
+                          
+                          [_resultArray addObject:mutableDict];
                       }
                       
                       NSLog(@"%@",responseObject);
@@ -299,7 +301,9 @@ typedef enum : NSUInteger {
                               success:^(AFHTTPRequestOperation *operation, id responseObject){
                                   NSLog(@"성공 %@",responseObject);
                                   for (id object in responseObject[@"data"]) {
-                                      [_resultArray addObject:object];
+                                      NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
+                                      
+                                      [_resultArray addObject:mutableDict];
                                       [_tableView reloadData];
                                   }
                                   
@@ -319,7 +323,9 @@ typedef enum : NSUInteger {
                                   _total = [responseObject[@"total"] unsignedIntegerValue];
                                   
                                   for (id object in responseObject[@"data"]) {
-                                      [_resultArray addObject:object];
+                                      NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
+                                      
+                                      [_resultArray addObject:mutableDict];
                                       [_tableView reloadData];
                                   }
                                   
@@ -340,7 +346,9 @@ typedef enum : NSUInteger {
                                   _total = [responseObject[@"total"] unsignedIntegerValue];
                                   
                                   for (id object in responseObject[@"data"]) {
-                                      [_resultArray addObject:object];
+                                      NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
+                                      
+                                      [_resultArray addObject:mutableDict];
                                       [_tableView reloadData];
                                   }
                                   
@@ -403,8 +411,19 @@ typedef enum : NSUInteger {
             parameters:@{@"pid":_resultArray[clickedButtonPath.row][@"pid"],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
              
                 NSLog(@"스냅 성공 : %@",ro);
+                
+                _resultArray[clickedButtonPath.row][@"numLike"] = @([_resultArray[clickedButtonPath.row][@"numLike"] integerValue]+1);
+                
+                _resultArray[clickedButtonPath.row][@"like"] = @1;
+                
+                
+                [_tableView reloadData];
+                
                 sender.tag=1;
                 [clickedCell snaped];
+                
+                
+                
             }
          
                failure:^(AFHTTPRequestOperation *op, NSError *error){
@@ -418,8 +437,17 @@ typedef enum : NSUInteger {
             parameters:@{@"pid":[NSNumber numberWithInteger:clickedButtonPath.row],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
                 
                 NSLog(@"스냅 취소성공 : %@",ro);
+                
+                _resultArray[clickedButtonPath.row][@"numLike"] = @([_resultArray[clickedButtonPath.row][@"numLike"] integerValue]-1);
+                
+                
+                _resultArray[clickedButtonPath.row][@"like"] = @0;
+                
+                [_tableView reloadData];
+                
                 sender.tag=0;
                 [clickedCell unsnap];
+                
             }
          
                failure:^(AFHTTPRequestOperation *op, NSError *error){
@@ -462,7 +490,10 @@ typedef enum : NSUInteger {
               [_resultArray removeAllObjects];
               
               for (id object in responseObject[@"data"]) {
-                  [_resultArray addObject:object];
+                  NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
+                  
+                  [_resultArray addObject:mutableDict];
+//                  [_tableView reloadData];
               }
               
               NSLog(@"%@",_resultArray);
@@ -497,7 +528,10 @@ typedef enum : NSUInteger {
               [_resultArray removeAllObjects];
               
               for (id object in responseObject[@"data"]) {
-                  [_resultArray addObject:object];
+                  NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
+                  
+                  [_resultArray addObject:mutableDict];
+//                  [_tableView reloadData];
               }
               
               NSLog(@"%@",_resultArray);
