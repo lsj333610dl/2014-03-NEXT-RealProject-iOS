@@ -33,6 +33,9 @@
             <string>NotoSansKR-DemiLight</string>
             <string>NotoSansKR-DemiLight</string>
             <string>NotoSansKR-DemiLight</string>
+            <string>NotoSansKR-DemiLight</string>
+            <string>NotoSansKR-DemiLight</string>
+            <string>NotoSansKR-DemiLight</string>
         </mutableArray>
         <mutableArray key="NotoSansKR-Light.otf">
             <string>NotoSansKR-Light</string>
@@ -47,6 +50,7 @@
             <string>NotoSansKR-Medium</string>
         </mutableArray>
         <mutableArray key="NotoSansKR-Regular.otf">
+            <string>NotoSansKR-Regular</string>
             <string>NotoSansKR-Regular</string>
         </mutableArray>
         <mutableArray key="NotoSansKR-Thin.otf">
@@ -868,7 +872,7 @@
                                             <constraint firstAttribute="width" constant="50" id="90W-oE-6B5"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="16"/>
-                                        <state key="normal" title="Back">
+                                        <state key="normal" title="닫기">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -939,38 +943,8 @@
                                 </constraints>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="testBG.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="I31-Y2-V7d">
-                                <rect key="frame" x="0.0" y="64" width="600" height="364"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="364" id="G2h-S5-zh2"/>
-                                </constraints>
+                                <rect key="frame" x="0.0" y="64" width="600" height="303"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ee6-7l-UDF">
-                                <rect key="frame" x="10" y="436" width="580" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="HYE-hy-aue"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내용" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4K-nA-GaG">
-                                <rect key="frame" x="10" y="516" width="580" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="uqb-Vm-Oim"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="가격" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVu-0U-Frv">
-                                <rect key="frame" x="10" y="476" width="580" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="9fz-Qu-YAw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ETL-5j-HBB">
                                 <rect key="frame" x="-16" y="556" width="316" height="44"/>
                                 <color key="backgroundColor" red="0.30588235289999999" green="0.7725490196" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -987,7 +961,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z2R-gT-nb4">
                                 <rect key="frame" x="300" y="556" width="316" height="44"/>
-                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="p3T-Ei-q8z"/>
                                 </constraints>
@@ -999,43 +973,84 @@
                                     <action selector="snap:" destination="hmk-bm-gog" eventType="touchUpInside" id="oX5-bN-7JC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999명이 읽었고, 99명이 Snap했습니다." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Av8-Kd-a11">
+                                <rect key="frame" x="16" y="505" width="568" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="741-b0-Msv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKR-Regular" family="Noto Sans Korean" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nXT-6x-Uyn">
+                                <rect key="frame" x="10" y="377" width="580" height="120"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="제목" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ee6-7l-UDF">
+                                        <rect key="frame" x="66" y="0.0" width="524" height="40"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="가격" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVu-0U-Frv">
+                                        <rect key="frame" x="66" y="40" width="524" height="40"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="내용" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u4K-nA-GaG">
+                                        <rect key="frame" x="66" y="80" width="524" height="40"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="내용" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FgT-h3-Gd7">
+                                        <rect key="frame" x="10" y="80" width="48" height="40"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="제목" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1rk-Mh-3Xf">
+                                        <rect key="frame" x="10" y="0.0" width="48" height="40"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="가격" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fHr-9Z-4uD">
+                                        <rect key="frame" x="10" y="40" width="48" height="40"/>
+                                        <fontDescription key="fontDescription" name="NotoSansKR-DemiLight" family="Noto Sans Korean" pointSize="17"/>
+                                        <color key="textColor" red="0.30588235289999999" green="0.7725490196" blue="0.59607843140000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="X4m-jx-j7j"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Av8-Kd-a11" firstAttribute="top" secondItem="nXT-6x-Uyn" secondAttribute="bottom" constant="8" id="0a4-Ho-FqM"/>
                             <constraint firstAttribute="trailing" secondItem="z2R-gT-nb4" secondAttribute="trailing" constant="-16" id="7fg-Zm-HPA"/>
+                            <constraint firstAttribute="trailing" secondItem="nXT-6x-Uyn" secondAttribute="trailing" constant="10" id="8le-zH-63v"/>
                             <constraint firstItem="ETL-5j-HBB" firstAttribute="width" secondItem="z2R-gT-nb4" secondAttribute="width" id="8pW-Pe-KFg"/>
                             <constraint firstItem="ETL-5j-HBB" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leading" constant="-16" id="9qV-CG-vvA"/>
-                            <constraint firstItem="z2R-gT-nb4" firstAttribute="top" secondItem="u4K-nA-GaG" secondAttribute="bottom" id="9yq-lb-sD8"/>
+                            <constraint firstItem="I31-Y2-V7d" firstAttribute="top" secondItem="BNk-Pe-Qim" secondAttribute="bottom" id="Fd6-Kw-p1v"/>
                             <constraint firstItem="z2R-gT-nb4" firstAttribute="leading" secondItem="ETL-5j-HBB" secondAttribute="trailing" id="Hz5-ZZ-sh5"/>
                             <constraint firstItem="z2R-gT-nb4" firstAttribute="leading" secondItem="ETL-5j-HBB" secondAttribute="trailing" id="JJF-BI-L90"/>
-                            <constraint firstItem="ETL-5j-HBB" firstAttribute="top" secondItem="I31-Y2-V7d" secondAttribute="bottom" constant="128" id="L5x-em-I3p"/>
                             <constraint firstItem="BNk-Pe-Qim" firstAttribute="top" secondItem="SOs-IB-RDP" secondAttribute="top" id="Mpk-nc-dEg"/>
-                            <constraint firstItem="Ee6-7l-UDF" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leadingMargin" constant="-6" id="NQW-b0-bfj"/>
-                            <constraint firstItem="z2R-gT-nb4" firstAttribute="top" secondItem="LVu-0U-Frv" secondAttribute="bottom" id="NYh-PX-Q12"/>
-                            <constraint firstItem="I31-Y2-V7d" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leadingMargin" constant="-16" id="RGi-BN-9Me"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ee6-7l-UDF" secondAttribute="trailing" constant="-6" id="V9S-bm-Mlb"/>
-                            <constraint firstItem="u4K-nA-GaG" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leadingMargin" constant="-6" id="ZQG-5I-KTI"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="u4K-nA-GaG" secondAttribute="trailing" constant="-6" id="Zg5-Wv-4kP"/>
-                            <constraint firstItem="u4K-nA-GaG" firstAttribute="top" secondItem="LVu-0U-Frv" secondAttribute="bottom" id="Zh5-gc-UgB"/>
-                            <constraint firstItem="LVu-0U-Frv" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leadingMargin" constant="-6" id="Zuz-Iu-61A"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LVu-0U-Frv" secondAttribute="trailing" constant="-6" id="bUc-bG-9bm"/>
+                            <constraint firstItem="z2R-gT-nb4" firstAttribute="top" secondItem="Av8-Kd-a11" secondAttribute="bottom" constant="11" id="QAm-ux-Ed8"/>
+                            <constraint firstItem="Av8-Kd-a11" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leading" constant="16" id="XhI-8X-efe"/>
+                            <constraint firstAttribute="trailing" secondItem="Av8-Kd-a11" secondAttribute="trailing" constant="16" id="aOq-nW-F7e"/>
+                            <constraint firstItem="nXT-6x-Uyn" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leading" constant="10" id="dar-an-mcC"/>
                             <constraint firstItem="BNk-Pe-Qim" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leading" id="flS-2L-Y13"/>
-                            <constraint firstItem="u4K-nA-GaG" firstAttribute="top" secondItem="LVu-0U-Frv" secondAttribute="bottom" id="hPD-MK-siC"/>
-                            <constraint firstItem="z2R-gT-nb4" firstAttribute="top" secondItem="u4K-nA-GaG" secondAttribute="bottom" id="lcf-sY-cNn"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="I31-Y2-V7d" secondAttribute="trailing" constant="-16" id="mtV-iP-aAr"/>
+                            <constraint firstAttribute="trailing" secondItem="I31-Y2-V7d" secondAttribute="trailing" id="hRl-t4-W6q"/>
+                            <constraint firstItem="nXT-6x-Uyn" firstAttribute="top" secondItem="I31-Y2-V7d" secondAttribute="bottom" constant="10" id="kLF-ct-1xF"/>
                             <constraint firstItem="Cef-nf-uNu" firstAttribute="top" secondItem="ETL-5j-HBB" secondAttribute="bottom" id="qrp-v3-bi3"/>
-                            <constraint firstItem="LVu-0U-Frv" firstAttribute="top" secondItem="Ee6-7l-UDF" secondAttribute="bottom" id="tcc-Nu-0yD"/>
+                            <constraint firstItem="I31-Y2-V7d" firstAttribute="leading" secondItem="SOs-IB-RDP" secondAttribute="leading" id="r1o-Lg-5b8"/>
                             <constraint firstItem="Cef-nf-uNu" firstAttribute="top" secondItem="z2R-gT-nb4" secondAttribute="bottom" id="wbg-SL-5hT"/>
-                            <constraint firstItem="I31-Y2-V7d" firstAttribute="top" secondItem="BNk-Pe-Qim" secondAttribute="bottom" id="xhz-G9-acO"/>
                             <constraint firstAttribute="trailing" secondItem="BNk-Pe-Qim" secondAttribute="trailing" id="yYw-Dr-K5w"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="Zh5-gc-UgB"/>
-                                <exclude reference="9yq-lb-sD8"/>
-                                <exclude reference="NYh-PX-Q12"/>
-                            </mask>
-                        </variation>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
                     <connections>
@@ -1046,9 +1061,11 @@
                         <outlet property="editButton" destination="Jbw-fK-RyO" id="UHx-SM-7q2"/>
                         <outlet property="imageView" destination="I31-Y2-V7d" id="xaa-hZ-Evw"/>
                         <outlet property="priceLabel" destination="LVu-0U-Frv" id="PJD-TW-GhK"/>
+                        <outlet property="shadowView" destination="nXT-6x-Uyn" id="RdW-gx-i57"/>
                         <outlet property="snapButton" destination="z2R-gT-nb4" id="JbY-7D-k7j"/>
                         <outlet property="titleLabel" destination="Ee6-7l-UDF" id="4vt-H7-ckv"/>
                         <outlet property="topTitleLabel" destination="83y-oC-AfA" id="pP0-RZ-gaS"/>
+                        <outlet property="viewSnapCountLabel" destination="Av8-Kd-a11" id="7IP-zp-cuX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iJI-vg-3xB" userLabel="First Responder" sceneMemberID="firstResponder"/>

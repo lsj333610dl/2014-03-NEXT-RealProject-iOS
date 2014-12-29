@@ -263,6 +263,18 @@ typedef enum : NSUInteger {
  
     [SVProgressHUD showWithStatus:@"Loading..."];
     
+    NSString *readURL = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/%zd/read",[_resultArray[indexPath.row][@"pid"] integerValue]];
+    
+    [_manager POST:readURL
+        parameters:nil
+           success:^(AFHTTPRequestOperation *op, id ro){
+               NSLog(@"조회수 증가 성공 %@ %@",op,ro);
+           }
+           failure:^(AFHTTPRequestOperation *op, NSError *error){
+               NSLog(@"조회수 증가 실패 %@",error);
+           }];
+    
+    
     _detailVC.data = _resultArray[indexPath.row];
     [_detailVC reloadData];
     [self presentViewController:_detailVC animated:YES completion:^{
@@ -434,7 +446,7 @@ typedef enum : NSUInteger {
     //snap 취소
     else if(sender.tag == 1){
         [_manager DELETE:urlString
-            parameters:@{@"pid":[NSNumber numberWithInteger:clickedButtonPath.row],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
+            parameters:@{@"pid":_resultArray[clickedButtonPath.row][@"pid"],@"uid":[NSNumber numberWithInteger:delegate.uid]} success:^(AFHTTPRequestOperation *op,id ro){
                 
                 NSLog(@"스냅 취소성공 : %@",ro);
                 

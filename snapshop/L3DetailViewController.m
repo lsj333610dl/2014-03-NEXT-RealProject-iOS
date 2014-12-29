@@ -19,6 +19,7 @@
 #define COLOR_MAIN UIColorFromRGB(0x4EC598)
 
 @interface L3DetailViewController ()
+@property (weak, nonatomic) IBOutlet UIView *shadowView;
 @property (weak, nonatomic) IBOutlet UILabel *topTitleLabel;
 @property (weak, nonatomic) IBOutlet UIButton *backButton;
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
@@ -39,6 +40,7 @@
 @property (nonatomic) L3TextField *urlTF;
 
 @property (nonatomic) CGRect alertViewFrame;
+@property (weak, nonatomic) IBOutlet UILabel *viewSnapCountLabel;
 
 @end
 
@@ -51,6 +53,13 @@
 
     _manager = [AFHTTPRequestOperationManager manager];
     
+    
+    
+    _shadowView.layer.masksToBounds = NO;
+    _shadowView.layer.shadowColor = [UIColor colorWithWhite:0.5f alpha:1.0f].CGColor;
+    _shadowView.layer.shadowOffset = CGSizeMake(0, 1);
+    _shadowView.layer.shadowOpacity = 1.0f;
+    _shadowView.layer.shadowRadius = 1.0f;
 }
 
 
@@ -58,8 +67,18 @@
     _topTitleLabel.text = _data[@"title"];
     _titleLabel.text = _data[@"title"];
     [_imageView sd_setImageWithURL:[NSURL URLWithString:_data[@"imgUrl"]]];
-    _priceLabel.text = _data[@"price"];
+    
+    NSNumberFormatter *formatter = [NSNumberFormatter new];
+    [formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    
+    NSNumber *priceNumber = [formatter numberFromString:_data[@"price"] ];
+    NSString *priceString = [formatter stringFromNumber:priceNumber];
+    
+    
+    _priceLabel.text = [NSString stringWithFormat:@"%@원",priceString];
     _contentsLabel.text = _data[@"contents"];
+    
+    _viewSnapCountLabel.text = [NSString stringWithFormat:@"%zd명이 구경하고, %zd명이 Snap했습니다.",[_data[@"read"] integerValue],[_data[@"numLike"] integerValue]];
     
     if ([_data[@"shopUrl"] isEqualToString:@""]) {
         [_buyButton setHighlighted:YES];
