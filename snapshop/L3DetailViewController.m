@@ -265,12 +265,7 @@
     
     _sialertView = [[SIAlertView alloc]initWithTitle:nil andMessage:nil andContentView:editView];
     
-    __block L3DetailViewController *selfCopy = self;
-    
     [_sialertView addButtonWithTitle:@"취소" type:SIAlertViewButtonTypeCancel handler:nil];
-    [_sialertView addButtonWithTitle:@"저장" type:SIAlertViewButtonTypeDestructive handler:^(SIAlertView* alertView){
-        [selfCopy editPost];
-    }];
     
     
     [_sialertView show];
@@ -282,19 +277,26 @@
 - (void)editPost{
     
     NSString *editUrlString = [NSString stringWithFormat:@"http://125.209.199.221:8080/app/posts/edit/%zd",[_data[@"pid"] integerValue]];
-    [_manager POST:editUrlString
-        parameters:@{@"title":_titleTF.text,
-                     @"contents":_contentsTF.text,
-                     @"price":_priceTF.text,
-                     @"shopUrl":_priceTF.text
-                     }
-constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    [formData appendPartWithFileData:UIImageJPEGRepresentation(_imageView.image, 1) name:@"image" fileName:@"editImage" mimeType:@"image/jpeg"];
     
+    NSDictionary *parameters = @{@"title":_titleTF.text,
+                                 @"contents":_contentsTF.text,
+                                 @"price":_priceTF.text,
+                                 @"shopUrl":_urlTF.text,
+                                 @"id":@(_delegate.uid)
+                                 };
+    
+    [_manager POST:editUrlString
+        parameters:parameters
+constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [formData appendPartWithFileData:UIImageJPEGRepresentation(_imageView.image, 1) name:@"image" fileName:@"editImage.jpg" mimeType:@"image/jpeg"];
+    NSLog(@"%@, %@",editUrlString,parameters);
 }
            success:^(AFHTTPRequestOperation *op, id ro){
                NSLog(@"성공!, %@",ro);
                [_sialertView dismissAnimated:YES];
+               _titleLabel.text = parameters[@"title"];
+               _contentsLabel.text = parameters[@"contents"];
+               _priceLabel.text = parameters[@"price"];
                
            }
            failure:^(AFHTTPRequestOperation *op, NSError *error){

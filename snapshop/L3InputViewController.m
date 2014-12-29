@@ -21,7 +21,7 @@
 
 @property (retain, nonatomic) IBOutlet UIView *inputView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *layoutConstraint;
-@property (nonatomic) CGRect keyboardBounds;
+
 @property (weak, nonatomic) IBOutlet UIButton *cancelButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
 @property (weak, nonatomic) IBOutlet L3TextField *titleTextfield;
@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (nonatomic) AppDelegate *delegate;
 @property (weak, nonatomic) IBOutlet L3TextField *priceTextfield;
-
+@property (nonatomic) CGRect keyboardBounds;
 
 @end
 

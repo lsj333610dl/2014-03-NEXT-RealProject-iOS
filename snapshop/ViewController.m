@@ -148,7 +148,7 @@ typedef enum : NSUInteger {
                           [_resultArray addObject:object];
                       }
                       
-                      NSLog(@"%@",_resultArray);
+                      NSLog(@"%@",responseObject);
                       [_tableView reloadData];
                       [refreshControl endRefreshing];
                   }
@@ -244,7 +244,10 @@ typedef enum : NSUInteger {
     
     
     
-    if ( (indexPath.row == [_resultArray count]-1) && !_isLoading ) {
+    if ( (indexPath.row == [_resultArray count]-1) && !_isLoading && _total>_resultArray.count) {
+        
+        NSLog(@"%zd,%zd",_total,_resultArray.count);
+        
         _isLoading = YES;
         [self loadMore];
         NSLog(@"좀더");
