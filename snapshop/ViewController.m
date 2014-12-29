@@ -72,7 +72,7 @@ typedef enum : NSUInteger {
     
     [self reloadTable];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"SavePost" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(savePost) name:@"SavePost" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadTable) name:@"ReloadData" object:nil];
 
 
@@ -125,6 +125,11 @@ typedef enum : NSUInteger {
     
     _detailVC = [_storyBoard instantiateViewControllerWithIdentifier:@"detailViewController"];
     
+}
+
+- (void)savePost{
+    [_sortSeg setSelectedSegmentIndex:1];
+    [self reloadTable];
 }
 
 - (void)reloadTable{
@@ -283,6 +288,7 @@ typedef enum : NSUInteger {
     
     
     _detailVC.data = _resultArray[indexPath.row];
+    
     [_detailVC reloadData];
     [self presentViewController:_detailVC animated:YES completion:^{
         [SVProgressHUD dismiss];

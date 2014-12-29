@@ -14,7 +14,7 @@
 @property (nonatomic) NSString *titleString;
 @property (nonatomic) NSString *priceString;
 
-@property (nonatomic) NSDictionary *data;
+@property (nonatomic) NSMutableDictionary *data;
 
 - (void)reloadData;
 

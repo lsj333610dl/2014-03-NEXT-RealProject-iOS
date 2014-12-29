@@ -182,7 +182,7 @@
               
               if ([responseObject[@"status"] isEqualToNumber:@10]) {
                   [self dismissViewControllerAnimated:YES completion:nil];
-                  [[NSNotificationCenter defaultCenter]postNotificationName:@"SaveSuccess" object:nil];
+                  [[NSNotificationCenter defaultCenter]postNotificationName:@"SavePost" object:nil];
               }
               
           } failure:^(AFHTTPRequestOperation *operation, NSError *error) {

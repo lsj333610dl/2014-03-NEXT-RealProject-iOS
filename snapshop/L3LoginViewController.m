@@ -56,7 +56,13 @@
 
 - (IBAction)login:(id)sender{
     
-    if ([_emailTextField.text containsString:@"@"] && [_emailTextField.text containsString:@"."]) {
+    NSString *emailid = _emailTextField.text;
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
+    NSPredicate *emailTest =[NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    BOOL myStringMatchesRegEx=[emailTest evaluateWithObject:emailid];
+    
+    
+    if (myStringMatchesRegEx) {
         
         if (_passwordTextField.text.length < 4) {
             SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"비밀번호 오류!" andMessage:@"비밀번호가 너무 짧습니다.\n다시 입력해주세요."];

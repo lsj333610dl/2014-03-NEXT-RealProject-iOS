@@ -229,7 +229,7 @@
 
 - (IBAction)edit:(id)sender {
     UIView *editView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 250, 300)];
-    [editView setBackgroundColor:[UIColor colorWithWhite:0.17f alpha:1.0f]];
+//    [editView setBackgroundColor:[UIColor colorWithWhite:0.17f alpha:1.0f]];
     
     UILabel *titleLabel     = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 250, 20)];
     UILabel *contentsLabel  = [[UILabel alloc]initWithFrame:CGRectMake(10, 80, 250, 20)];
@@ -241,10 +241,10 @@
     priceLabel.text = @"가격";
     urlLabel.text = @"URL";
     
-    titleLabel.textColor = [UIColor whiteColor];
-    contentsLabel.textColor = [UIColor whiteColor];
-    priceLabel.textColor = [UIColor whiteColor];
-    urlLabel.textColor = [UIColor whiteColor];
+    titleLabel.textColor =    COLOR_MAIN;
+    contentsLabel.textColor = COLOR_MAIN;
+    priceLabel.textColor =    COLOR_MAIN;
+    urlLabel.textColor = COLOR_MAIN;
     
     [editView addSubview:titleLabel];
     [editView addSubview:contentsLabel];
@@ -252,10 +252,10 @@
     [editView addSubview:urlLabel];
     
     
-    self.titleTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 30, 250, 40)];
-    self.contentsTF = [[L3TextField alloc]initWithFrame:CGRectMake(10, 100, 250, 40)];
-    self.priceTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 170, 250, 40)];
-    self.urlTF    = [[L3TextField alloc]initWithFrame:CGRectMake(10, 240, 250, 40)];
+    self.titleTF    = [[L3TextField alloc]initWithFrame:CGRectMake(0, 30, 250, 40)];
+    self.contentsTF = [[L3TextField alloc]initWithFrame:CGRectMake(0, 100, 250, 40)];
+    self.priceTF    = [[L3TextField alloc]initWithFrame:CGRectMake(0, 170, 250, 40)];
+    self.urlTF    = [[L3TextField alloc]initWithFrame:CGRectMake(0, 240, 250, 40)];
     
     
     [_titleTF setDelegate:self];
@@ -281,10 +281,10 @@
     self.priceTF.inputAccessoryView = toolbar;
     self.urlTF.inputAccessoryView = toolbar;
     
-    self.titleTF.textColor = [UIColor whiteColor];
-    self.contentsTF.textColor = [UIColor whiteColor];
-    self.priceTF.textColor = [UIColor whiteColor];
-    self.urlTF.textColor = [UIColor whiteColor];
+    self.titleTF.textColor = [UIColor darkGrayColor];
+    self.contentsTF.textColor = [UIColor darkGrayColor];
+    self.priceTF.textColor = [UIColor darkGrayColor];
+    self.urlTF.textColor = [UIColor darkGrayColor];
     
     self.titleTF.text = _data[@"title"];
     self.priceTF.text = _data[@"price"];
@@ -328,9 +328,10 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
            success:^(AFHTTPRequestOperation *op, id ro){
                NSLog(@"성공!, %@",ro);
                [_sialertView dismissAnimated:YES];
-               _titleLabel.text = parameters[@"title"];
-               _contentsLabel.text = parameters[@"contents"];
-               _priceLabel.text = parameters[@"price"];
+               _data[@"title"] = parameters[@"title"];
+               _data[@"contents"] = parameters[@"contents"];
+               _data[@"price"] = parameters[@"price"];
+               [self reloadData];
                
            }
            failure:^(AFHTTPRequestOperation *op, NSError *error){
