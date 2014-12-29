@@ -18,6 +18,7 @@
 
 @interface L3JoinViewController ()
 
+@property (weak, nonatomic) IBOutlet UIView *formView;
 @property (nonatomic) AFHTTPRequestOperationManager *manager;
 @property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet L3TextField *emailTextField;
@@ -26,9 +27,13 @@
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
 @property (strong, nonatomic) UIStoryboard *storyBoard;
 
+@property (nonatomic) CGRect keyboardBounds;
+
 @end
 
 @implementation L3JoinViewController
+
+@synthesize keyboardBounds;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -41,6 +46,13 @@
     
     [_emailTextField becomeFirstResponder];
     
+    
+    _formView.layer.masksToBounds = NO;
+    _formView.layer.shadowColor = [UIColor colorWithWhite:0.5f alpha:1.0f].CGColor;
+    _formView.layer.shadowOffset = CGSizeMake(0, 1);
+    _formView.layer.shadowOpacity = 1.0f;
+    _formView.layer.shadowRadius = 1.0f;
+    
 }
 
 
@@ -49,7 +61,7 @@
     if ([_emailTextField.text containsString:@"@"] && [_emailTextField.text containsString:@"."]) {
         
         if (_passwordTextField.text.length < 4) {
-            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"비밀번호 오류!" andMessage:@"비밀번호가 너무 짧습니다.\n다시 입력해주세요."];
+            SIAlertView *alert = [[SIAlertView alloc]initWithTitle:@"비밀번호 오류!" andMessage:@"비밀번호가 너무 짧습니다.\n4자 이상으로 입력해주세요."];
             [alert addButtonWithTitle:@"확인" type:SIAlertViewButtonTypeCancel handler:^(SIAlertView *alertView){
                 [_passwordTextField becomeFirstResponder];
             }];
@@ -67,7 +79,7 @@
         }
         
         
-        [_manager GET:@"http://125.209.199.221:8080/app/users/new"
+        [_manager POST:@"http://125.209.199.221:8080/app/users/new"
            parameters:@{@"email":_emailTextField.text,@"password":_passwordTextField.text}
               success:^(AFHTTPRequestOperation *operation, id responseObject){
                   NSLog(@"%@",[responseObject objectForKey:@"status"]);
@@ -80,12 +92,13 @@
                             success:^(AFHTTPRequestOperation *operation, id responseObject){
                                 NSLog(@"%@",[responseObject objectForKey:@"status"]);
                                 
-                                if ([[responseObject objectForKey:@"status"] isEqual:SUCCESS_STATUS]) {
+                                if ([[[responseObject objectForKey:@"status"] stringValue] isEqualToString:SUCCESS_STATUS]) {
                                     
                                     AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
                                     [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];
                                     [delegate setEmailString:_emailTextField.text];
                                     
+                                    [self.view endEditing:YES];
                                     
                                     ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
                                     
@@ -127,6 +140,10 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
+
+
+
+
 #pragma mark - etc
 
 - (BOOL)prefersStatusBarHidden{
@@ -138,14 +155,10 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
 }
-*/
+
 
 @end

@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *joinButton;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (strong, nonatomic) UIStoryboard *storyBoard;
+@property (weak, nonatomic) IBOutlet UIView *formView;
 
 @end
 
@@ -40,6 +41,13 @@
 
     
     [_emailTextField becomeFirstResponder];
+    
+    
+    _formView.layer.masksToBounds = NO;
+    _formView.layer.shadowColor = [UIColor colorWithWhite:0.5f alpha:1.0f].CGColor;
+    _formView.layer.shadowOffset = CGSizeMake(0, 1);
+    _formView.layer.shadowOpacity = 1.0f;
+    _formView.layer.shadowRadius = 1.0f;
     
 }
 
@@ -73,6 +81,7 @@
                       [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];
                       [delegate setEmailString:_emailTextField.text];
                       
+                      [self.view endEditing:YES];
                       
                       ViewController *mainViewController = [_storyBoard instantiateViewControllerWithIdentifier:@"mainViewController"];
                       
@@ -116,5 +125,8 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    [self.view endEditing:YES];
+}
 
 @end
