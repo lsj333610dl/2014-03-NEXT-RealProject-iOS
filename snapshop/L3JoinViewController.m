@@ -92,7 +92,8 @@
                             success:^(AFHTTPRequestOperation *operation, id responseObject){
                                 NSLog(@"%@",[responseObject objectForKey:@"status"]);
                                 
-                                if ([[[responseObject objectForKey:@"status"] stringValue] isEqualToString:SUCCESS_STATUS]) {
+                                
+                                if ([[responseObject objectForKey:@"status"] isEqualToNumber:@10]) {
                                     
                                     AppDelegate *delegate = [[UIApplication sharedApplication]delegate];
                                     [delegate setUid:[[responseObject objectForKey:@"id"]integerValue]];
@@ -106,7 +107,7 @@
                                 }
                                 
                                 else {
-                                    [SVProgressHUD showErrorWithStatus:@"로그인 실패!\n이메일&비밀번호를 확인해보세요."];
+                                    [SVProgressHUD showErrorWithStatus:@"회원가입은 성공, 로그인은 실패!"];
                                 }
                                 
                             }

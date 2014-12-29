@@ -38,9 +38,11 @@
 @property (nonatomic) L3TextField *contentsTF;
 @property (nonatomic) L3TextField *priceTF;
 @property (nonatomic) L3TextField *urlTF;
+@property (weak, nonatomic) IBOutlet UILabel *writerLabel;
 
 @property (nonatomic) CGRect alertViewFrame;
 @property (weak, nonatomic) IBOutlet UILabel *viewSnapCountLabel;
+@property (weak, nonatomic) IBOutlet UIView *topBarView;
 
 @end
 
@@ -48,24 +50,35 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+    
     _delegate = [[UIApplication sharedApplication] delegate];
     [self reloadData];
 
     _manager = [AFHTTPRequestOperationManager manager];
     
     
+//    [self addShadowToView:_topBarView];
+    [self addShadowToView:_shadowView];
     
-    _shadowView.layer.masksToBounds = NO;
-    _shadowView.layer.shadowColor = [UIColor colorWithWhite:0.5f alpha:1.0f].CGColor;
-    _shadowView.layer.shadowOffset = CGSizeMake(0, 1);
-    _shadowView.layer.shadowOpacity = 1.0f;
-    _shadowView.layer.shadowRadius = 1.0f;
+}
+
+- (void)addShadowToView:(UIView*)view{
+    
+    view.layer.masksToBounds = NO;
+    view.layer.shadowColor = [UIColor colorWithWhite:0.5f alpha:1.0f].CGColor;
+    view.layer.shadowOffset = CGSizeMake(0, 1);
+    view.layer.shadowOpacity = 1.0f;
+    view.layer.shadowRadius = 1.0f;
 }
 
 
 - (void)reloadData{
     _topTitleLabel.text = _data[@"title"];
     _titleLabel.text = _data[@"title"];
+    _writerLabel.text = [NSString stringWithFormat:@"작성자 : %@",_data[@"writer"]];
+    
     [_imageView sd_setImageWithURL:[NSURL URLWithString:_data[@"imgUrl"]]];
     
     NSNumberFormatter *formatter = [NSNumberFormatter new];
@@ -100,10 +113,12 @@
     if ([_delegate.emailString isEqualToString:_data[@"writer"]]) {
         _deleteButton.hidden = NO;
         _editButton.hidden = NO;
+        _writerLabel.hidden = YES;
     }
     else {
         _deleteButton.hidden = YES;
         _editButton.hidden = YES;
+        _writerLabel.hidden = NO;
     }
 
 }
@@ -362,6 +377,9 @@ constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
     [UIView commitAnimations];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 
 /*
 #pragma mark - Navigation

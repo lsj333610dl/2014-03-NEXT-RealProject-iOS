@@ -144,6 +144,13 @@ typedef enum : NSUInteger {
                       
                       [_resultArray removeAllObjects];
                       
+                      if (_total == 0) {
+                          [_tableView reloadData];
+                          [refreshControl endRefreshing];
+                          return;
+                      }
+                      
+                      
                       for (id object in responseObject[@"data"]) {
                           NSMutableDictionary *mutableDict = [NSMutableDictionary dictionaryWithDictionary:object];
                           
